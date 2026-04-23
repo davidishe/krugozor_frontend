@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
-  strapiUrl: 'https://strapi.krugozor.space/api/',
-  imageUri: 'https://strapi.krugozor.space',
-  graphQlUrl: 'https://strapi.krugozor.space/graphql',
+  strapiUrl: 'https://strapi.krugozor.davidishe.pro/api/',
+  imageUri: 'https://strapi.krugozor.davidishe.pro',
+  graphQlUrl: 'https://strapi.krugozor.davidishe.pro/graphql',
   domain: 'https://krugozor.space/',
-  apiUrl: 'https://api.krugozor.space/api/',
-  baseUri: 'https://api.krugozor.space/api/',
-  authUri: 'https://api.krugozor.space/api/',
-  signalRUrl: 'https://api.krugozor.space/chathub'
+  apiUrl: 'https://api.krugozor.davidishe.pro/api/',
+  baseUri: 'https://api.krugozor.davidishe.pro/api/',
+  authUri: 'https://api.krugozor.davidishe.pro/api/',
+  signalRUrl: 'https://api.krugozor.davidishe.pro/chathub'
 };
