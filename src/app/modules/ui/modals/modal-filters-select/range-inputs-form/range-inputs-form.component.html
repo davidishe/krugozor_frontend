@@ -1,0 +1,17 @@
+<form>
+  <div class="sm:rounded-md">
+    <div class="grid grid-cols-6 gap-6">
+      <app-form-text-input [isWithIcon]="true" label="Минимальная цена" [form]="form"
+        [control_name]="form.get('minimalPrice')" class="col-span-6 sm:col-span-3" form_ControlName="minimalPrice"
+        [type]="'number'" (notify)="setMinimalPrice()">
+      </app-form-text-input>
+
+      <app-form-text-input [isWithIcon]="true" label="Максимальная цена" [form]="form"
+        [control_name]="form.get('maximalPrice')" class="col-span-6 sm:col-span-3" form_ControlName="maximalPrice"
+        [type]="'number'" (notify)="setMaximalPrice()">
+      </app-form-text-input>
+
+
+    </div>
+  </div>
+</form>

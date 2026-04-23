@@ -1,0 +1,48 @@
+<div class="bg-white">
+  <div class="mx-auto max-w-full py-8  sm:py-24 px-4 sm:px-6 lg:px-16 overflow-hidden mt-14 md:mt-5 min-h-screen">
+
+
+    <!-- <ng-container *ngIf="!(this.navbarMenuStatus$ | async) && (params$ | async).isPending === false">
+      <app-dashboard-list-filters-workspace></app-dashboard-list-filters-workspace>
+    </ng-container> -->
+
+
+    <div *ngIf="!(this.navbarMenuStatus$ | async) && (params$ | async).isPending === false"
+      class="mt-6 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 xl:gap-x-10 scroll-smooth"
+      style="position: relative;">
+
+      <ng-container *ngFor="let item of ((this.responseData$ | async)); let i=index">
+
+        <app-card [item]="item" [routerLink]="[ '/dashboard/items', item.id ]"></app-card>
+        <!-- <app-tw-card-wide [routerLink]="['/dashboard/items', item.id  ]" name="{{item?.name}}"
+          placeholderIcon="tw_house_black" description="{{item?.description}}" [mediumImageUrl]="
+          item?.imageProfile" createdAt="{{item.createdAt | datelocale}}" specialStatusText="{{'Продано' | translate}}"
+          [isSpecialStatus]="+item?.attributes?.proposal_status?.data?.id === 4">
+        </app-tw-card-wide> -->
+      </ng-container>
+
+    </div>
+
+
+
+    <app-shaders *ngIf="(params$ | async).isPending"></app-shaders>
+
+
+
+    <ng-container
+      *ngIf="((this.responseData$ | async)?.data?.proposals?.data?.length === 0) && (params$ | async).isPending === false">
+      <app-nothing-added style="cursor: default;" [isLoading]="isLoading"
+        textTitle="{{'Пока ничего не найдено' | translate}}" textSubTitle="
+        {{'Сбросьте фильтры поиска, чтобы найти информацию' | translate}}">
+      </app-nothing-added>
+    </ng-container>
+
+
+
+
+    <app-tw-pagination
+      *ngIf="( ((this.responseData$ | async)?.data?.proposals?.data.length > 0)) && (params$ | async).isPending === false">
+    </app-tw-pagination>
+
+
+  </div>

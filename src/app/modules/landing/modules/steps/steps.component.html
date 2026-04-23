@@ -1,0 +1,95 @@
+<div class=" w-full flex-col justify-center items-center">
+  <div class="mb-3 font-display text-lg text-gray-50 flex align-middle items-center justify-center flex-col font-semibold
+    text-center">
+    {{currentItem?.step}}
+  </div>
+
+  <div class="text-gray-50 text-base leading-6 max-w-3xl mx-auto">
+    {{currentItem?.text}}
+  </div>
+
+  <br>
+
+
+  <div class="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-3">
+
+
+
+    <button class="text-sm font-semibold leading-6 border  hover:opacity-100 border-indigo-200
+    text-indigo-200
+    hover:text-white cursor-pointer hover:border-white rounded-full
+      px-3.5 py-2.5 transition shadow-sm 
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-100
+      w-fit" (click)="previous()" [ngClass]="{'cursor-default disabled pointer-events-none opacity-50': currentItem.id
+      === 1}">
+      <span aria-hidden="true">←</span>
+      {{'Предыдущий шаг' | translate}}
+    </button>
+
+
+
+
+    <button class="text-sm font-semibold leading-6 border  hover:opacity-100 border-indigo-200 text-indigo-200
+    hover:text-white cursor-pointer hover:border-white rounded-full
+      px-3.5 py-2.5 transition shadow-sm 
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-100
+      w-fit" (click)="next()" [ngClass]="{'disabled cursor-default pointer-events-none opacity-50': currentItem.id ===
+      items.length}">
+      {{'Следующий шаг' | translate}}
+      <span aria-hidden="true">→</span>
+    </button>
+
+
+
+  </div>
+
+
+
+
+
+
+</div>
+
+
+<br><br>
+
+
+<nav class="flex items-center justify-center" aria-label="Progress">
+  <ol role="list" class="flex items-center space-x-5">
+    <ng-container *ngFor="let item of items; let i=index">
+      <ng-container *ngIf="item.status === 0">
+        <li class="cursor-pointer transition" (click)="setStep(item)">
+          <a class="block h-2.5 w-2.5 rounded-full bg-indigo-400 hover:bg-indigo-900">
+          </a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="item.status === 1">
+        <li class="cursor-pointer transition" (click)="setStep(item)">
+          <a class="relative flex items-center justify-center" aria-current="step">
+            <span class="absolute flex h-5 w-5 p-px" aria-hidden="true">
+              <span class="h-full w-full rounded-full bg-indigo-200"></span>
+            </span>
+            <span class="relative block h-2.5 w-2.5 rounded-full bg-indigo-600" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="item.status === 2">
+        <li class="cursor-pointer transition" (click)="setStep(item)">
+          <!-- Upcoming Step -->
+          <a class="block h-2.5 w-2.5 rounded-full bg-gray-200 hover:bg-gray-400">
+          </a>
+        </li>
+      </ng-container>
+
+
+
+
+    </ng-container>
+
+
+  </ol>
+
+
+</nav>

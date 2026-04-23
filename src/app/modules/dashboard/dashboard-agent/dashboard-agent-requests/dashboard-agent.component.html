@@ -1,0 +1,42 @@
+<app-tw-page-layout title="{{'Заявки покупателей' | translate}}"
+  description="{{'Заявки от покупателей, которые были перданы в сервис по твоему объекту' | translate}}."
+  [routerLinkAttribute]="['/dashboard']" backBtnText="{{'Назад' | translate}}">
+
+
+  <div class="flow-root">
+    <div class="inline-block min-w-full align-middle">
+
+      <ng-container *ngIf="isLoading">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+          <img src="./assets/svg/spinner.svg" alt="">
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="((allSpecificAgentProposals)?.length === 0 && !isLoading)">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+          <app-tw-empty subtitle="Разместите предложение о продаже через личный кабинет"
+            icon="./assets/svg/tw_doc_black.svg" title="{{'Пока здесь пусто' | translate}}">
+          </app-tw-empty>
+        </div>
+      </ng-container>
+
+
+
+
+      <ng-container *ngIf="((allSpecificAgentProposals)?.length > 0 && !isLoading)">
+        <ul role="list" class="divide-y divide-gray-100">
+          <ng-container *ngFor="let proposalProfile of allSpecificAgentProposals; let i=index">
+            <app-dashboard-agent-list-item [proposalProfile]="proposalProfile"></app-dashboard-agent-list-item>
+          </ng-container>
+        </ul>
+      </ng-container>
+
+
+
+
+
+
+    </div>
+  </div>
+
+</app-tw-page-layout>

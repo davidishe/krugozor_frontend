@@ -1,0 +1,100 @@
+<div class="bg-white px-4 py-5 sm:p-6 shadow sm:rounded-md mt-10">
+  <!-- start -->
+
+  <div class="bg-white pb-0" style="padding-bottom: 0px;">
+    <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+      {{'Вложения' | translate}}
+    </div>
+    <span class="block text-sm font-medium text-gray-700 mb-3">
+      {{'Добавь презентацию по объекту недвижимости' | translate}}
+    </span>
+  </div>
+
+
+
+  <div style="position: relative; padding-bottom: 5px;">
+    <div class="mt-6 pb-5 scroll-smooth" style="position: relative;">
+      <dd class="mt-2 text-sm text-gray-900 sm:col-span-3 sm:mt-0">
+        <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
+          <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+            <div class="flex w-0 flex-1 items-center">
+              <ng-container *ngIf="isLoading === false">
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                  aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z"
+                    clip-rule="evenodd" />
+                </svg>
+              </ng-container>
+              <ng-container *ngIf="isLoading">
+                <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 flex-shrink-0 text-gray-400">
+                  <style>
+                    @keyframes svg-animation-23116f45 {
+                      0% {
+                        transform: rotate(0deg)
+                      }
+
+                      to {
+                        transform: rotate(360deg)
+                      }
+                    }
+
+                    @keyframes circle-animation-23116f45 {
+
+                      0%,
+                      25% {
+                        stroke-dashoffset: 280;
+                        transform: rotate(0)
+                      }
+
+                      50%,
+                      75% {
+                        stroke-dashoffset: 75;
+                        transform: rotate(45deg)
+                      }
+
+                      to {
+                        stroke-dashoffset: 280;
+                        transform: rotate(360deg)
+                      }
+                    }
+                  </style>
+                  <g style="animation:2s linear infinite svg-animation-23116f45;transform-origin:50% 50%">
+                    <circle cx="50" cy="50" r="45"
+                      style="animation:2s ease-in-out infinite both circle-animation-23116f45;transform-origin:50% 50%"
+                      display="block" fill="transparent" stroke="currentColor" stroke-linecap="round"
+                      stroke-dasharray="283" stroke-dashoffset="280" stroke-width="10"></circle>
+                  </g>
+                </svg>
+              </ng-container>
+
+
+              <div class="ml-4 flex min-w-0 flex-1 gap-2">
+                <a class="truncate font-medium text-indigo-700 hover:text-indigo-800 hover:underline" target="_blank"
+                  href="{{currentProfile?.investPassportLink}}">
+                  {{'Документация' | translate}}
+                </a>
+                <!-- <span class="flex-shrink-0 text-gray-400">2.4mb</span> -->
+              </div>
+            </div>
+            <div class="ml-4 flex-shrink-0">
+              <a class="font-medium text-indigo-700 hover:text-indigo-800 cursor-pointer" (click)="file.click()">
+                {{'Загрузить файл' | translate}}
+              </a>
+              <input class="hidden" type="file" #file placeholder="Выбери файл" (change)="uploadFile(file.files)"
+                style="display:none;">
+
+            </div>
+          </li>
+
+
+        </ul>
+      </dd>
+    </div>
+
+
+
+
+  </div>
+</div>

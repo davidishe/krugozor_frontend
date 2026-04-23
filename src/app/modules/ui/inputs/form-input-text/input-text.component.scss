@@ -1,0 +1,88 @@
+.form-input {
+  display: grid;
+  position: relative;
+}
+
+.label {
+  top: 6px;
+  position: absolute;
+  margin-left: 14px;
+  font-size: var(--small);
+  color: var(--font);
+  width: 100%;
+  padding: 4px 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.input {
+  border-radius: 12px;
+  padding: 15px 15px;
+  padding-top: 30px;
+  padding-bottom: 12px;
+  padding-left: 18px;
+  border: var(--input-border);
+  background-color: var(--background);
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: Source Sans Pro;
+}
+
+input::placeholder {
+  color: lightgrey;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: Source Sans Pro;
+}
+
+input:hover,
+input:focus-visible {
+  border-color: black !important;
+}
+
+.input:disabled {
+  background: #f6f6f6;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #000000;
+  opacity: 0.4;
+  font-family: Source Sans Pro;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.invalid-feedback {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  bottom: -16px;
+  font-size: var(--small);
+  padding-left: 19px;
+
+  .validator {
+    font-size: 11px;
+    color: var(--error);
+    // padding-left: 24px;
+    position: relative;
+  }
+}
+
+.eye {
+  position: absolute;
+  right: 0px;
+  margin-right: 10px;
+  display: flex;
+  top: 54%;
+  border: none;
+  background-color: transparent;
+}
+
+.edited {
+  border: 1px solid red !important;
+}

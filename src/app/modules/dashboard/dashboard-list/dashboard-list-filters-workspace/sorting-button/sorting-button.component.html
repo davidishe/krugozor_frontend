@@ -1,0 +1,40 @@
+        <div class="relative inline-block text-left opacity-100 bg-opacity-100 hover:opacity-100" style="z-index: 1;">
+          <div (click)="toggleButton()" class="inline-flex items-center border-none pl-3 pr-3 
+            transition relative rounded-full px-3 py-1.5 font-medium text-gray-900 text-xs bg-gray-900" style="cursor:
+            pointer;" id="sorting-button">
+            <span class="text-white h-5 flex align-middle text-center" style="align-items: center;">
+              <ng-content></ng-content>
+            </span>
+
+            <div class="h-5 ml-1 opacity-100" style="align-items: center; display: flex;">
+              <img class="w-4" *ngIf="icon" src="./assets/svg/{{icon}}.svg" alt="">
+            </div>
+          </div>
+
+          <!--
+            Dropdown menu, show/hide based on menu state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div *ngIf="isOpen" class="absolute left-0 mt-2 w-52 origin-top-left rounded-md bg-white shadow-2xl ring-1 ring-black
+            ring-opacity-5 focus:outline-none hover:opacity-100" role="menu">
+            <div class="py-0 bg-white opacity-100 hover:opacity-100 rounded-md overflow-hidden" role="none">
+              <!-- Active: "bg-gray-100", Not Active: "" -->
+              <div (click)="sortAccending()" class="cursor-pointer px-4 py-2  opacity-100 hover:opacity-100 bg-white text-xs font-medium text-gray-900
+                hover:bg-gray-100 inline-flex w-full" style="display: flex; align-items: center;">
+                <img class="w-5 mr-2 rotate-180" src="./assets/svg/tw_arrow_down_black.svg" alt="">
+                {{ 'По возрастанию' | translate }}
+              </div>
+              <div (click)="sortDescending()" class="cursor-pointer px-4 py-2  opacity-100 hover:opacity-100 bg-white text-xs font-medium text-gray-900
+                hover:bg-gray-100 inline-flex w-full" style="display: flex; align-items: center;">
+                <img class=" w-5 mr-2" src="./assets/svg/tw_arrow_down_black.svg" alt="">
+                {{ 'По убыванию' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>

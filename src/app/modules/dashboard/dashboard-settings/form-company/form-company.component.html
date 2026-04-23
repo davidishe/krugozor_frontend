@@ -1,0 +1,141 @@
+<ng-container *ngIf="!!!companyAttributes">
+  <form>
+    <div class="overflow-hidden shadow sm:rounded-md">
+      <div class="bg-white px-4 py-5 sm:p-6" style="min-height: 156px; display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;">
+        <img class="h-5 w-5 relative" src="./assets/svg/spinner.svg" alt="">
+      </div>
+      <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex" style="min-height: 60px;">
+        <!-- <app-tw-button-third-without-icon iconPath="empty" [isLoading]="false" [isDisabled]="true">
+          {{'Выйти из компании' | translate}}
+        </app-tw-button-third-without-icon> -->
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+
+<ng-container *ngIf="companyAttributes?.isTechnical === false && companyAttributes">
+
+  <form>
+    <div class="overflow-hidden shadow sm:rounded-md">
+      <div class="bg-white px-4 py-5 sm:p-6">
+
+        <div>
+          <div class="mt-1 flex items-center">
+            <span class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100"
+              style="justify-content: center; align-items: center; vertical-align: middle; display: flex;">
+
+              <ng-container>
+                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </ng-container>
+
+
+
+
+              <!-- *ngIf="(currentUser$ | async)?.pictureUrl -->
+              <ng-container *ngIf="companyAttributes.images.data[0].attributes.url">
+                <img style="display: block;"
+                  [src]="imageUri + companyAttributes.images.data[0].attributes.url | secure | async">
+              </ng-container>
+            </span>
+
+
+            <button type="button"
+              class="ml-5 rounded-full border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700      shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              [routerLink]="[ '/dashboard/company/site/', currentUser.strapiCompanyId ]">
+              {{'Посмотреть минисайт' | translate}}
+            </button>
+          </div>
+        </div>
+
+        <div class="truncate text-sm font-medium text-gray-900 mt-3">
+          {{companyAttributes.name}}
+        </div>
+        <div class="mt-1 truncate text-sm text-gray-500">
+          {{companyAttributes.address}}
+        </div>
+
+      </div>
+      <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+        <app-tw-button-third-without-icon iconPath="empty"
+          [routerLink]="[ '/dashboard/company/edit/', currentUser.strapiCompanyId ]" [isLoading]="isPending"
+          [isDisabled]="isPending" class="mr-2">
+          {{'Редактировать' | translate}}
+        </app-tw-button-third-without-icon>
+        <app-tw-button-third-without-icon iconPath="empty" [isLoading]="isPending" [isDisabled]="isPending">
+          {{'Присоединиться к другой' | translate}}
+        </app-tw-button-third-without-icon>
+      </div>
+    </div>
+  </form>
+
+</ng-container>
+
+
+
+
+<!-- техническая запись -->
+<ng-container *ngIf="companyAttributes?.isTechnical === true && companyAttributes">
+  <form>
+    <div class="overflow-hidden shadow sm:rounded-md ">
+      <div class="bg-indigo-700 px-4 py-5 sm:p-6">
+        <div>
+          <div class="mt-1 flex items-center">
+            <span class="inline-block h-12 w-12 overflow-hidden rounded-full  bg-opacity-60"
+              style="justify-content: center; align-items: center; vertical-align: middle; display: flex;">
+
+              <ng-container>
+                <svg class="h-full w-full text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                </svg>
+              </ng-container>
+
+              <ng-container *ngIf="companyAttributes?.images?.data?.length > 0">
+                <img style="display: block;"
+                  [src]="imageUri + companyAttributes.images?.data[0]?.attributes.url | secure | async">
+              </ng-container>
+
+
+            </span>
+
+
+            <button type="button"
+              class="ml-5 rounded-full border border-indigo-500 bg-indigo-700 cursor-not-allowed py-2 px-3 text-sm font-medium leading-4 text-gray-100      shadow-sm  focus:outline-none "
+              disabled="true">
+
+              {{'Минисайт не доступен' | translate}}
+
+            </button>
+          </div>
+        </div>
+
+        <div class="truncate text-sm font-medium text-gray-100 mt-3">
+          {{'Профиль агентства недвижимости не заполнен' | translate}}
+        </div>
+        <div class="mt-1 text-sm text-gray-50">
+          {{'Пожалуйста, внесите недостающие данные если вы хотите размещать информацию на платформе. Ты также можете присоединиться к другой компании, если у тебя есть код авторизации.' | translate}}
+        </div>
+
+      </div>
+      <div class="flex flex-col bg-indigo-500 px-4 py-3 text-right sm:px-6 justify-end md:flex-row">
+        <app-tw-button-third-without-icon iconPath="empty"
+          [routerLink]="[ '/dashboard/company/edit/', currentUser.strapiCompanyId ]" [isLoading]="isPending"
+          [isDisabled]="isPending" class="mr-2 mb-3 md:mb-0">
+          {{'Редактировать' | translate}}
+        </app-tw-button-third-without-icon>
+        <app-tw-button-third-without-icon iconPath="empty" [isLoading]="isPending" [isDisabled]="isPending">
+          {{'Присоединиться к другой' | translate}}
+        </app-tw-button-third-without-icon>
+      </div>
+    </div>
+  </form>
+
+</ng-container>

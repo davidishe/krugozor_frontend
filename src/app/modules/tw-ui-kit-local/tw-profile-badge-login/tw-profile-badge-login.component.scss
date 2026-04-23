@@ -1,0 +1,10 @@
+.activated {
+  filter: sepia(0.5);
+  opacity: 0.8;
+  transition: all ease-in-out 0.15s;
+}
+
+.activated:hover {
+  filter: none;
+  opacity: 1;
+}

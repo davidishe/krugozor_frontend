@@ -1,0 +1,70 @@
+<app-tw-page-layout title="{{'Планирую купить' | translate}}"
+  description="{{'Твои заявки на совместную покупку недвижимости' | translate}}." [routerLinkAttribute]="['/dashboard']"
+  backBtnText="{{'Назад' | translate}}">
+
+
+  <div class="flow-root">
+    <div class="inline-block min-w-full align-middle">
+
+      <ng-container *ngIf="isLoading">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+          <img src="./assets/svg/spinner.svg" alt="">
+        </div>
+      </ng-container>
+
+
+      <ng-container
+        *ngIf="(allSpecificUserProposals?.data?.proposals?.data?.length === 0 && !isLoading || allSpecificUserProposals === null)">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+          <app-tw-empty title="Ничего не нашел"
+            subtitle="{{'Пока еще пусто, потому что ты ничего не добавлял' | translate}}" [isBtnDisabled]="true"
+            icon="./assets/svg/tw_doc_black.svg">
+            <!-- {{'Продолжить' | translate}} -->
+          </app-tw-empty>
+        </div>
+      </ng-container>
+
+
+
+      <div class="mt-6 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 xl:gap-x-8 scroll-smooth"
+        style="position: relative;">
+        <ng-container *ngIf="((allSpecificUserProposals?.data?.proposals?.data)?.length > 0 && !isLoading)">
+          <ng-container *ngFor="let item of allSpecificUserProposals?.data?.proposals?.data; let i=index">
+            <app-tw-card-wide [routerLink]="['/dashboard/items', item?.id  ]" name="{{item?.attributes?.name}}"
+              description="{{item?.attributes?.description}}" [imageUri]="imageUri"
+              [mediumImageUrl]="item?.attributes?.images?.data[0]?.attributes?.formats?.medium?.url"
+              createdAt="{{item?.attributes?.createdAt | datelocale}}" specialStatusText="{{'Продано' | translate}}"
+              [isSpecialStatus]="+item?.attributes?.proposal_status?.data?.id === 4" placeholderIcon="tw_house_black">
+
+
+              <div class="max-w-xl">
+                <div class="mt-2 mb-3 flex items-center gap-x-4 gap-y-3 text-xs flex-wrap justify-start">
+                  <app-chip-black style="width: max-content;">
+                    {{'Создана'}} {{(getRequest())?.createdAt | datelocale}}
+                  </app-chip-black>
+                  <app-filters-button-chip class="mr-3" style="width: max-content;">
+                    {{(getRequest())?.status}}
+                  </app-filters-button-chip>
+                </div>
+              </div>
+
+
+
+            </app-tw-card-wide>
+
+
+
+
+          </ng-container>
+        </ng-container>
+      </div>
+
+
+
+
+
+
+    </div>
+  </div>
+
+</app-tw-page-layout>

@@ -1,0 +1,106 @@
+<div class="authorize-page-wrapper">
+  <div class=" login-page-wrapper">
+
+    <div class="container">
+
+      <form [formGroup]="form">
+
+        <app-title text="{{'pages.auth.registration' | translate}}"
+          style="display: flex; justify-content: center; text-align: center;"></app-title>
+        <div style="text-align: center; font-size: 18px;">
+          {{'pages.auth.registration.onboarding_text' | translate}} {{email}}
+        </div>
+
+        <br>
+        <div>
+
+
+
+          <!-- <app-input-ionic label="{{'globals.labels.name' | translate}}" control_name="firstName" [form]="form"
+            [disabled]="false" [hasError]="form.get('firstName').invalid && form.get('firstName').touched">
+          </app-input-ionic> -->
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['minlength']">
+            {{'pages.profile.min_value_validator' | translate}}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('secondName').touched && form.get('firstName').errors['maxlength']">
+            {{'pages.profile.max_value_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['digits_restricted']">
+            {{'pages.profile.digits_restricted_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').touched && form.get('firstName').errors['required']">
+            {{'globals.labels.required_validator' | translate }}
+
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['spec_chars']">
+            {{'globals.labels.not_spec_chars_validator' | translate }}
+          </div>
+          <br>
+
+
+
+
+          <!-- <app-input-ionic label="{{'globals.labels.secondName' | translate}}" control_name="secondName" [form]="form"
+            [disabled]="false" [hasError]="form.get('secondName').invalid">
+          </app-input-ionic> -->
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['required']">
+            {{'globals.labels.required_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').dirty && form.get('secondName').errors['minlength']">
+            {{'pages.profile.min_value_validator' | translate}}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['maxlength']">
+            {{'pages.profile.max_value_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['digits_restricted']">
+            {{'pages.profile.digits_restricted_validator' | translate }}
+          </div>
+
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['spec_chars']">
+            {{'globals.labels.not_spec_chars_validator' | translate }}
+          </div>
+
+
+
+
+          <br>
+        </div>
+
+        <div>
+          <app-mat-btn-small text="{{'pages.auth.register' | translate}}" bgcolor="#007aff" font="white"
+            isFlexWidth=true [disabled]="!form.valid || isPending" [isPending]="isPending" (click)="goToList()">
+          </app-mat-btn-small>
+
+        </div>
+
+        <br>
+        <app-mat-btn-small text="{{'globals.labels.back' | translate}}" bgcolor="#F6F6F6" font="black" isFlexWidth=true
+          [disabled]="false" [routerLink]="[ '/auth/register' ]" (click)="(clearForm())">
+        </app-mat-btn-small>
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+</div>

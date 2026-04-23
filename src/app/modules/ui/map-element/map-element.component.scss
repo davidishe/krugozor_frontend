@@ -1,0 +1,46 @@
+:host {
+  position: relative;
+  display: block;
+  z-index: 1;
+}
+
+.map-wrapper {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: middle;
+  height: 48px;
+  z-index: 2;
+}
+
+.map {
+  background: #f6f6f6;
+  border-radius: 12px;
+  color: rgba(0, 0, 0);
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  // cursor: pointer;
+  user-select: none;
+  justify-content: space-between;
+
+  ion-icon {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+}
+
+.map-right,
+.map-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+app-map {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,57 @@
+<div *ngIf="((popoverState$ | async)?.popoverType === 'pledge_change') && (popoverState$ | async)?.status === true"
+  style="overflow-y: hidden;" class="z-10 ">
+  <div class="fixed inset-0 pb-5" style="max-height: 100%; ">
+    <div class="flex pt-10 justify-center align-top p-4 text-center mt-14 sm:p-0" style="height: fit-content;">
+
+      <div class="w-full relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8"
+        style="padding-bottom: 0px; max-width: 40rem; overflow: hidden;">
+
+        <div class="flex pb-3 pl-3 justify-center pt-5 border-b relative">
+          <app-close style="position: absolute; left: 25px;"></app-close>
+          <app-tw-title>{{'Изменение суммы сделки' | translate}}</app-tw-title>
+        </div>
+
+        <div style="position: relative; padding-bottom: 5px;">
+          <div class="pt-8 pb-5 pl-5 pr-5 relative justify-center align-middle">
+            <img class="mx-auto rounded-full flex h-32 w-32 overflow-hidden " src="./assets/svg/persons/get_money.svg"
+              alt="">
+            <p class="text-center">{{'Укажите сумму, которую планируется покупатель для сделки' | translate}}</p>
+            <p class="text-center">{{'Максимальная сумма' | translate}}
+              <span class="font-bold">
+                {{maxInvestValue | currency}}
+              </span></p>
+            <p class="text-center">
+              {{'Минимальная сумма' | translate}}
+              <span class="font-bold">
+                {{minInvestValue | currency}}
+              </span>
+            </p>
+            <br>
+            <app-form-text-input type="number" [isWithIcon]="true" [form]="form"
+              [control_name]="form?.get('investAmmount')" class="col-span-6 sm:col-span-3"
+              form_ControlName="investAmmount" style="justify-content: center; display: flex;" placeholder="$0.00">
+            </app-form-text-input>
+            <!-- end -->
+
+          </div>
+        </div>
+
+        <div class="w-full justify-end inline-flex px-5 pt-5 border-t bg-white pb-4" style="bottom: 0px; left: 0px;">
+          <!-- <app-tw-button-second >
+          </app-tw-button-second> -->
+          <app-tw-button-second iconPath="tw_close" (click)="close()" class="ml-3">
+            {{'Закрыть' | translate}}
+          </app-tw-button-second>
+
+          <app-tw-button-third iconPath="tw_check" class="ml-3" (click)="changeRequestAmmount()"
+            [isDisabled]="!this.form?.valid">
+            {{'Подтвердить' | translate}}
+          </app-tw-button-third>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

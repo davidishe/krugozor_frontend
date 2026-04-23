@@ -1,0 +1,85 @@
+<ng-container *ngIf="currentInitiative">
+  <div
+    class=" bg-white mx-auto max-w-full py-8  sm:py-24 px-4 sm:px-6 lg:px-16 overflow-hidden mt-14 md:mt-5 min-h-screen">
+
+    <app-filters-button-chip class="mb-3" icon="move_left" style="width: fit-content;" [isReversed]="true" backButton>
+      {{ 'Назад' | translate }}
+    </app-filters-button-chip>
+
+    <div class="flex-col flex md:flex-row md:inline-flex justify-between w-full" style="align-items: center;">
+      <h2 class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+        {{currentInitiative?.name }}
+      </h2>
+
+      <div style="width: 100%; display: flex; justify-content: flex-end; align-items: center;"
+        class="gap-x-3 mt-3 md:mt-0">
+
+        <!-- <img class="h-4 w-4" style="position: relative; height: 30px; width: 30px;"
+          *ngIf="currentInitiative?.isUrgent" src="./assets/gif/fire.gif" alt=""> -->
+
+
+        <!-- если добавлено в избранное -->
+        <ng-container *ngIf=" ((favours$ | async) | is_favourited:currentInitiative?.id); else notFavourite">
+          <app-tw-button-icon-textless [icon]="(isLoading) ? 'spinner' : 'tw_heart_black'" (click)=" deleteFavour()">
+          </app-tw-button-icon-textless>
+        </ng-container>
+
+        <!-- если не добавлено в избранное -->
+        <ng-template #notFavourite>
+          <app-tw-button-icon-textless [icon]="(isLoading) ? 'spinner' : 'heart'" (click)="onFavour()">
+          </app-tw-button-icon-textless>
+        </ng-template>
+
+        <app-tw-button-icon-textless icon="copy" (click)="copyToClipboard()"></app-tw-button-icon-textless>
+      </div>
+    </div>
+
+
+    <div class="mt-4 flex gap-x-3">
+      <app-filters-button-chip class="mb-3" icon="calendar" style="width: fit-content;" [isReversed]="true"
+        [isDefaultCursor]="true">
+        {{'Обновлено' | translate}} {{currentInitiative?.updatedAt | datetimelocale}}
+      </app-filters-button-chip>
+
+      <app-filters-button-chip class="mb-3" style="width: fit-content;" [isReversed]="true" [isDefaultCursor]="true">
+        🎉 &nbsp;
+        {{'Популярность' | translate}} {{currentInitiative?.rating }}
+      </app-filters-button-chip>
+    </div>
+
+    <div class="bg-white">
+      <div class="mt-10">
+        <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
+          <!-- Image gallery -->
+          <app-tw-image-gallery [image]="currentInitiative?.imageProfile" [imageUrl]="currentInitiative?.imageProfile">
+          </app-tw-image-gallery>
+          <app-product-info [currentInitiative]="currentInitiative"
+            [isRequestSelected]="isRequestSelected(requests$ | async)">
+          </app-product-info>
+        </div>
+      </div>
+
+
+      <div *ngIf="!currentInitiative"
+        style="display: flex; justify-content: center; vertical-align: middle; height: 55vh; align-items: center;">
+      </div>
+
+
+
+    </div>
+  </div>
+
+</ng-container>
+
+
+
+
+
+<ng-container *ngIf="!currentInitiative">
+  <div
+    style="width: 100vw; height: 100vh; justify-content: center; vertical-align: middle; align-items: center; display: flex;">
+
+    <img class="w-7 h-7" src="./assets/svg/spinner.svg" alt="">
+
+  </div>
+</ng-container>

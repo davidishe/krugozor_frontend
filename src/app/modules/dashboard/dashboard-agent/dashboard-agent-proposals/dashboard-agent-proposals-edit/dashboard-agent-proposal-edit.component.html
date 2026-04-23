@@ -1,0 +1,206 @@
+<div class="bg-white mx-auto max-w-full py-8 px-4 pt-20 sm:px-6 lg:px-16 overflow-hidden min-h-screen"
+  *ngIf="isLoading === false">
+
+  <app-filters-button-chip class="mb-3 mt-4 flex flex-row justify-between pt-6" icon="move_left"
+    style="width: fit-content;" [isReversed]="true" backButton>
+    {{ 'Назад' | translate }}
+  </app-filters-button-chip>
+  <br>
+
+  <div class="w-full flex-col lg:justify-between gap-4 flex">
+
+    <div>
+      <ng-container *ngIf="+currentProposal?.data.id > 0">
+        <ng-container *ngIf="currentProposal?.data.attributes.name">
+          <h1
+            class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl tracking-tight flex flex-wrap">
+            {{currentProposal?.data.attributes.name}}
+          </h1>
+        </ng-container>
+
+        <ng-container *ngIf="!currentProposal?.data.attributes.name">
+          <h1
+            class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight flex-col">
+            {{'Новая запись' | translate}}
+          </h1>
+        </ng-container>
+
+        <div class="mt-2 text-sm text-gray-500">
+          {{'Заполните поля и сохраните результат.' | translate}}
+        </div>
+      </ng-container>
+    </div>
+
+
+    <div *ngIf="currentProposal?.data.id > 0" class="flex-auto items-center align-middle justify-end"
+      style="display: flex; flex-flow: wrap;">
+      <ng-container *ngIf="isPublished">
+        <app-tw-button-third iconPath="tw_doc_up_white" (click)="draftProposal()" class="mt-3 mb-3">
+          {{'Опубликовать' | translate}}
+        </app-tw-button-third>
+      </ng-container>
+
+      <ng-container *ngIf="!isPublished">
+        <app-tw-button-third iconPath="tw_doc_down_white" (click)="publishProposal()" class="mt-3 mb-3">
+          {{'Вернуть в черновик' | translate}}
+        </app-tw-button-third>
+      </ng-container>
+    </div>
+
+
+  </div>
+
+
+
+  <!-- content here -->
+  <div class="mt-10">
+    <form>
+      <div class="overflow-hidden shadow sm:rounded-md">
+        <div class="bg-white px-4 py-5 sm:p-6">
+          <div class="flex justify-between">
+            <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+              {{'Описание' | translate}}
+            </div>
+            <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+              <ng-container *ngIf="form.status === 'INVALID'">
+                <app-chip-black class="mr-3 mb-3" style="width: max-content;">
+                  {{'Секция не заполнена' | translate}}
+                </app-chip-black>
+              </ng-container>
+
+              <ng-container *ngIf="form.status === 'VALID'">
+                <app-chip-black class="mr-3 mb-3" style="width: max-content;">
+                  {{'Секция заполнена' | translate}}
+                </app-chip-black>
+              </ng-container>
+            </div>
+          </div>
+
+
+
+          <div class="grid grid-cols-6 gap-6">
+
+            <div class="col-span-6 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="Название" [form]="form" [control_name]="form.get('name')"
+                class="col-span-6 sm:col-span-3" form_ControlName="name" type="text">
+              </app-form-text-input>
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="Цена" [form]="form" [control_name]="form.get('price')"
+                class="col-span-6 sm:col-span-3" form_ControlName="price" type="number">
+              </app-form-text-input>
+            </div>
+
+            <div class="col-span-6 sm:col-span-6">
+              <app-form-text-area rowsQuantity="5" label="{{'Описание' | translate}}" [form]="form"
+                [control_name]="form.get('description')" form_ControlName="description"
+                description="{{'Введи описание здесь.' | translate}}"
+                placeholder="{{'Постарайтесь заполнить подробнее, если хотите заинтересовать клиентов' | translate}}">
+              </app-form-text-area>
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="{{'Адрес' | translate}}" [form]="form"
+                [control_name]="form.get('address')" class="col-span-6 sm:col-span-3" form_ControlName="address"
+                type="text">
+              </app-form-text-input>
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-0 mb-1.5">{{'Есть ли действующий бизнес' | translate}}</label>
+              <app-tw-toggle [enabledText]="'Есть действующий арендатор' | translate"
+                [disabledText]="'Нет действующего арендатора' | translate"
+                (getToggleStatus)="setIsRealBussinessEnabled($event)"
+                [isEnabled]="this.currentProposal.data.attributes.isRealBusinessEnable" class="col-span-6
+                sm:col-span-3 mt-3">
+              </app-tw-toggle>
+            </div>
+
+
+          </div>
+          <br>
+
+          <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-12 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="{{'Площадь, кв. м.' | translate}}" [form]="form"
+                [control_name]="form.get('placeArea')" class="col-span-12 sm:col-span-3" form_ControlName="placeArea"
+                type="number">
+              </app-form-text-input>
+            </div>
+            <div class="col-span-12 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="{{'Год постройки' | translate}}" [form]="form"
+                [control_name]="form.get('buildYear')" class="col-span-12 sm:col-span-3" form_ControlName="buildYear"
+                type="number">
+              </app-form-text-input>
+            </div>
+            <div class="col-span-12 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="{{'Кровати, штук' | translate}}" [form]="form"
+                [control_name]="form.get('bedsQuantity')" class="col-span-12 sm:col-span-3"
+                form_ControlName="bedsQuantity" type="number">
+              </app-form-text-input>
+            </div>
+            <div class="col-span-12 sm:col-span-3">
+              <app-form-text-input [isWithIcon]="true" label="{{'Мощность сети, кВт' | translate}}" [form]="form"
+                [control_name]="form.get('electricityPower')" class="col-span-12 sm:col-span-3"
+                form_ControlName="electricityPower" type="number">
+              </app-form-text-input>
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+          <app-tw-button-third-without-icon iconPath="empty" (click)="updateMainData()" [isLoading]="isPending"
+            [isDisabled]="isPending || this.form.status === 'INVALID' || isLoading">
+            {{'Сохранить' | translate}}
+          </app-tw-button-third-without-icon>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+  <app-my-proposal-page-proposal-type [currentProposal]="currentProposal">
+  </app-my-proposal-page-proposal-type>
+
+  <app-my-proposal-page-cities [selectedCities]="currentProposal?.data?.attributes?.cities?.data"
+    [currentProposal]="currentProposal">
+  </app-my-proposal-page-cities>
+
+  <app-my-proposal-page-categories [currentProposal]="currentProposal">
+  </app-my-proposal-page-categories>
+
+  <app-agent-proposals-edit-amenities [currentProposal]="currentProposal">
+  </app-agent-proposals-edit-amenities>
+
+
+  <app-my-proposal-page-images [currentProposal]="currentProposal"
+    [images]="currentProposal?.data.attributes.images.data">
+  </app-my-proposal-page-images>
+
+  <app-agent-proposal-edit-files [currentProfile]="currentProfile">
+  </app-agent-proposal-edit-files>
+
+
+
+</div>
+
+
+<div class="mt-16">
+  <ng-container *ngIf="isLoading === true">
+    <app-spinner></app-spinner>
+  </ng-container>
+</div>
+
+
+<!-- 
+TODO: 
+список стран / гордов, 
+список категорий, 
+список кастомных категорий
+-->

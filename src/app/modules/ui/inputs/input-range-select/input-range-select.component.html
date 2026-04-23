@@ -1,0 +1,89 @@
+<ng-container>
+
+
+  <div>
+    <div class="relative" [formGroup]="form">
+
+      <div class=""
+        style="display: flex; flex-direction: row; justify-content: center; vertical-align: middle; align-items: center; margin-top: 101px;">
+
+        <div style="width: 100%; position: relative;">
+          <input style="width: 100%; position: absolute; left: 0px; z-index: 22;" type="range" min="0"
+            max="{{getCurrentPledgedRate()}}" step="20" (input)="changeRange($event.target.value,range1)" #range1
+            [ngClass]="{'error': (this.form.get('shareValue')!.errors['required'] && this.form.touched), 
+                  'opacity-100': this.form.get('shareValue')!.value === 0}" formControlName="shareValue">
+
+          <div style="background-color: rgba(240, 248, 255, 0.667); width: 100%; display: flex; justify-content:
+            space-between; align-items: center; position: relative;
+            top: -6px;">
+            <ng-container *ngFor="let item of values">
+              <app-value-column [ngStyle]="{'top.px': -item.rangeValue}"></app-value-column>
+            </ng-container>
+          </div>
+
+
+          <div style="background-color: rgb(254, 255, 254); width: 100%; display: flex; justify-content:
+            space-between; align-items: center; position: relative;
+            top: -6px; z-index: 1; display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            top: -6px;
+            z-index: 1;
+            height: 100%;
+            display: block;
+            height: 100px;
+            top: -106px;">
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+
+      <div
+        style="position: absolute; top: 0px; left: 0px; z-index: 11; display: flex; justify-content: space-between; width: 100%;">
+
+        <div style="display: flex; align-items: center;" *ngIf="selectedShare > 0">
+          <app-selected>
+            {{selectedShare}}%
+          </app-selected>
+        </div>
+
+
+        <div class="text-sm md:text-base lg:text-base max-lg:text-base text-gray-500"
+          style="width: 100%; justify-content: flex-end; align-items: center; display: flex; font-weight: 700;"
+          *ngIf="selectedShare === 0">
+          <div class="block md:flex">
+            {{'Ничего не выбрано' | translate}}
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; max-width: fit-content;" class="transition" *ngIf="false">
+          <img src="./assets/svg/minus.svg" (click)="onDecrease(range1, range1)" alt=""
+            style="height: 35px; width: 35px;" class="rounded-full opacity-40 hover:opacity-70">
+          <img src="./assets/svg/plus_rounded.svg" (click)="onIncrease(range1, range1)" alt=""
+            style="height: 35px; width: 35px;" class="rounded-full opacity-40 hover:opacity-70">
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+</ng-container>

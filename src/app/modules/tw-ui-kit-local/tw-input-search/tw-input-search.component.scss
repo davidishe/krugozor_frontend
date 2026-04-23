@@ -1,0 +1,10 @@
+.close {
+  padding-right: 6rem;
+}
+
+@media (min-width: 636px) {
+  .close {
+    padding-right: 9rem;
+    // background-color: rgba(255, 0, 0, 0.474);
+  }
+}

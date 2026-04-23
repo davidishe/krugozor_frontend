@@ -1,0 +1,9 @@
+      <ng-container *ngIf="isMyMessage">
+        <p class="text-sm font-bold mb-1">
+          {{authorUser?.firstName}} {{authorUser?.secondName}}
+        </p>
+      </ng-container>
+
+      <ng-container *ngIf="!isMyMessage">
+
+      </ng-container>

@@ -1,0 +1,67 @@
+button.material-btn {
+  cursor: pointer;
+  margin-right: 10px;
+  position: relative;
+  color: white;
+  text-align: center;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: space-around;
+  transition: background-color 0.1s ease-in-out;
+  display: flex;
+  border: none;
+  border-radius: var(--button-radius);
+  background-color: var(--main-color);
+  height: 57px;
+  width: max-content;
+
+  span {
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 2.7rem;
+  }
+}
+
+button.material-btn:hover {
+  background-color: black;
+  color: white;
+  opacity: 1;
+}
+
+.material-icons {
+  margin-right: 10px;
+  font-size: 15px;
+  width: 20px;
+}
+
+button.secondary {
+  background-color: #eae8fc;
+  color: var(--hover);
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+    background-color: #dad8fc;
+
+    span {
+      color: var(--hover);
+    }
+  }
+}
+
+button.fab-mode {
+  @media (max-width: 400px) {
+    img {
+      margin-right: 0px;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}

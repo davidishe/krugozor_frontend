@@ -1,0 +1,74 @@
+<div class="flex flex-col-reverse">
+
+
+
+  <!-- Image to show -->
+  <div class="border border-gray-100 shadow-sm rounded-lg"
+    [ngClass]="{'expanded': isExpanded, 'not-expanded': !isExpanded}" *ngIf="image?.length > 0">
+    <div class="aspect-w-1 aspect-h-1 w-full">
+      <div id="tabs-1-panel-1" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
+        <div style="background: rgb(55,55,56);
+          background: linear-gradient(180deg, rgba(55,55,56,0.5186668417366946) 1%, rgba(80,80,80,0.33659401260504207)
+          6%, rgba(255,255,255,0) 12%);
+          display: block; position: absolute; width: 100%; height: 100%;">
+        </div>
+
+        <img src="{{imageUrl}}" class="rounded-sm h-full w-full object-cover object-center sm:rounded-lg">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- placeholder -->
+  <ng-container *ngIf="image === null">
+    <div class="border border-gray-100 shadow-sm rounded-lg bg-gray-300">
+      <div class="aspect-w-1 aspect-h-1 w-full">
+        <div id="tabs-1-panel-1" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
+
+          <div
+            class="rounded-sm h-full w-full object-cover object-center sm:rounded-lg sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center">
+            <app-tw-button-icon-textless icon="tw_house_black" class="opacity-80">
+            </app-tw-button-icon-textless>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!-- end placeholder -->
+
+</div>
+<!-- end image to show -->
+
+
+
+
+
+<!-- expanded image -->
+<ng-container *ngIf="isExpanded">
+  <div class="fixed top-0 left-0 z-20 flex justify-center items-center align-middle w-full h-full">
+
+    <!-- btns -->
+    <div class="z-20 w-full justify-center items-center h-8  flex absolute bottom-3 left-0 gap-x-2">
+      <app-filters-button-chip class="flex flex-row justify-between bg-gray-50 rounded-full overflow-hidden shadow-sm"
+        icon="move_left" style="width: fit-content;" [isReversed]="true" (click)="left()">
+        {{ 'Назад' | translate }}
+      </app-filters-button-chip>
+      <app-filters-button-chip class="flex flex-row justify-between bg-gray-50 rounded-full overflow-hidden shadow-sm"
+        icon="close_solid" style="width: fit-content;" [isReversed]="true" (click)="collapse()">
+        {{ 'Закрыть' | translate }}
+      </app-filters-button-chip>
+      <app-filters-button-chip class="flex flex-row justify-between bg-gray-50 rounded-full overflow-hidden shadow-sm"
+        icon="move_right" style="width: fit-content;" [isReversed]="false" (click)="right()">
+        {{ 'Вперед' | translate }}
+      </app-filters-button-chip>
+    </div>
+    <!-- end  btns -->
+
+
+    <img src="{{imageUrl + images[currentIndex].attributes.url}}"
+      alt="Angled front view with bag zipped and handles upright."
+      class="h-fit object-cover object-center  relative shadow-sm">
+  </div>
+</ng-container>

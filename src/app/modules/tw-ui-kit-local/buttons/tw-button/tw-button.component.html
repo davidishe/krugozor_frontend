@@ -1,0 +1,6 @@
+<button type="button" class="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-4 py-2 text-xs font-light
+  text-white  hover:bg-indigo-700 focus:outline-none disabled:bg-slate-400 h-full"
+  [ngClass]="{'md:text-lg sm:text-lg text-lg': isLarge, 'rounded-full': isRounded}" [disabled]="isDisabled">
+  <img class=" -ml-1 mr-2 h-5 w-5" *ngIf="iconPath" src="./assets/svg/{{iconPath}}.svg" alt="">
+  <ng-content></ng-content>
+</button>

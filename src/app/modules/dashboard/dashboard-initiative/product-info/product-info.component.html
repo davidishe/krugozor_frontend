@@ -1,0 +1,58 @@
+<!-- <div class="mt-5 sm:mt-5 sm:px-0 lg:mt-0">
+  <div class="mt-6" style="display: flex; width: 100%; justify-content: space-between;">
+    <div class="text-xl font-medium text-gray-900 items-center flex">
+      {{currentInitiative.data.attributes.price | currency}}
+    </div>
+    <div style="display: flex;">
+      <ng-container *ngIf="profile">
+        <app-chip-black [isCursorDefaultStyle]="true">
+          {{ (profile?.proposalProfileStatusId | profile_status)?.name }}
+        </app-chip-black>
+      </ng-container>
+      <ng-container *ngIf="true">
+        <app-chip-black [isCursorDefaultStyle]="true">
+          {{'Запуск проекта' | translate}}
+        </app-chip-black>
+      </ng-container>
+
+
+    </div>
+
+  </div>
+</div>
+<br> -->
+
+
+<p class="font-sans">{{currentInitiative?.description}}</p>
+<br>
+
+
+<ng-container *ngIf="currentInitiative?.bornedYear">
+  <app-filters-button-chip class="mr-3 mb-3" style="width: max-content;">
+    {{currentInitiative?.bornedYear}}
+    {{'лет' | translate }}
+  </app-filters-button-chip>
+</ng-container>
+
+
+
+<ng-container *ngIf="currentInitiative?.rating">
+  <app-filters-button-chip class="mr-3 mb-3" style="width: max-content;">
+    {{'Популярность' | translate }}
+    {{currentInitiative?.rating}}
+  </app-filters-button-chip>
+</ng-container>
+
+
+
+<app-proposal-feature title="{{'Адрес' | translate}}" [isDisabled]="false" [isOpened]="false">
+  <div style="display: flex;">
+    <app-filters-button-chip class="mr-3 mb-3" style="width: max-content;">
+      {{currentInitiative?.address}}
+    </app-filters-button-chip>
+  </div>
+</app-proposal-feature>
+
+<ng-container *ngIf="profile?.investPassportLink">
+  <app-dashboard-initiative-files [proposalProfile]="profile"></app-dashboard-initiative-files>
+</ng-container>

@@ -1,0 +1,57 @@
+query {
+  category1S {
+    data {
+      id
+      attributes {
+        name
+        picture {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        categories {
+          data {
+            id
+            attributes {
+              name
+              categories {
+                data {
+                  id
+                  attributes {
+                    name
+                    categories {
+                      data {
+                        id
+                        attributes {
+                          name
+                          categories {
+                            data {
+                              id
+                              attributes {
+                                name
+                                categories {
+                                  data {
+                                    id
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

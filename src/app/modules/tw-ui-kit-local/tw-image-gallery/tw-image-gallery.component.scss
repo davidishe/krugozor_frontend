@@ -1,0 +1,37 @@
+:host {
+  position: relative;
+}
+
+.not-expanded {
+  // height: 300px !important;
+  overflow: hidden;
+}
+
+.expanded {
+  overflow: hidden !important;
+  height: 100%;
+}
+
+@media (max-width: 640px) {
+  .not-expanded {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+.first {
+  justify-content: flex-end !important;
+}
+
+.custom-image-wrapper {
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  position: absolute;
+  right: 0px;
+  top: 47%;
+  right: 0px;
+  width: 100%;
+  justify-content: space-between;
+}

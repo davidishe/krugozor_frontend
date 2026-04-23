@@ -1,0 +1,19 @@
+<ion-item class="ion-no-padding" lines="none" [formGroup]="form" (click)="isItemAvailable = true">
+  <ion-label position="stacked">{{label}}</ion-label>
+  <ion-input #input class="input" [type]="type" [formControlName]="control_name" [placeholder]="placeholder"
+    debounce="500" (ionInput)="getItems($event)" (click)="getItems($event)" #input_autocomplete>
+  </ion-input>
+</ion-item>
+
+<div class="popular-block--list" *ngIf="isItemAvailable">
+  <div class="autocomplete-content">
+    <ng-container *ngFor="let item of selected_items">
+      <div class="popular-block--list--item" (click)="handleItem(item)">
+        <div class="popular-block--list--item--name">
+          {{item.class_name}}
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

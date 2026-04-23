@@ -1,0 +1,96 @@
+<div class="bg-white" *ngIf="false">
+  <div class="mx-auto max-w-full py-8  sm:py-24 px-4 sm:px-6 lg:px-16 overflow-hidden mt-14 md:mt-5 min-h-screen"
+    *ngIf="isLoading === false">
+    <div class="flex-col w-full">
+
+      <h2>sdfdsfs</h2>
+      <ng-container *ngIf="currentProposal?.data.id > 0">
+        <ng-container *ngIf="currentProposal?.data.attributes.name">
+          <h1
+            class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight flex-col">
+            {{currentProposal?.data.attributes.name}}
+          </h1>
+        </ng-container>
+
+        <ng-container *ngIf="!currentProposal?.data.attributes.name">
+          <h1
+            class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight flex-col">
+            Новая запись
+          </h1>
+        </ng-container>
+
+
+
+        <div class="mt-2 text-sm text-gray-500">
+          {{'Заполните поля и сохраните результат.' | translate}}
+        </div>
+      </ng-container>
+
+
+
+    </div>
+
+
+
+    <!-- content here -->
+    <div class="mt-10">
+      <form>
+        <div class="overflow-hidden shadow sm:rounded-md">
+          <div class="bg-white px-4 py-5 sm:p-6">
+            <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+              {{'Описание' | translate}}
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+
+              <div class="col-span-6 sm:col-span-3">
+                <app-form-text-input [isWithIcon]="true" label="Название" [form]="form"
+                  [control_name]="form.get('name')" class="col-span-6 sm:col-span-3" form_ControlName="name"
+                  type="text">
+                </app-form-text-input>
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+                <app-form-text-input [isWithIcon]="true" label="Цена" [form]="form" [control_name]="form.get('price')"
+                  class="col-span-6 sm:col-span-3" form_ControlName="price" type="number">
+                </app-form-text-input>
+              </div>
+
+              <div class="col-span-6 sm:col-span-6">
+                <app-form-text-area rowsQuantity="5" label="{{'Описание' | translate}}" [form]="form"
+                  [control_name]="form.get('description')" form_ControlName="description"
+                  description="{{'Введи описание здесь.' | translate}}"
+                  placeholder="{{'Постарайтесь заполнить подробнее, если хотите заинтересовать клиентов' | translate}}">
+                </app-form-text-area>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+            <app-tw-button-third-without-icon iconPath="empty" (click)="updateMainData()" [isLoading]="isPending"
+              [isDisabled]="isPending || this.form.status === 'INVALID' || isLoading">
+              {{'Сохранить' | translate}}
+            </app-tw-button-third-without-icon>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+    <app-my-proposal-page-cities [selectedCities]="currentProposal?.data?.attributes?.cities?.data"
+      [currentProposal]="currentProposal">
+    </app-my-proposal-page-cities>
+
+    <app-my-proposal-page-categories [currentProposal]="currentProposal"></app-my-proposal-page-categories>
+
+
+    <app-my-proposal-page-images [currentProposal]="currentProposal"
+      [images]="currentProposal?.data.attributes.images.data">
+    </app-my-proposal-page-images>
+
+  </div>
+  <div class="mt-16">
+    <ng-container *ngIf="isLoading === true">
+      <app-spinner></app-spinner>
+    </ng-container>
+  </div>
+</div>

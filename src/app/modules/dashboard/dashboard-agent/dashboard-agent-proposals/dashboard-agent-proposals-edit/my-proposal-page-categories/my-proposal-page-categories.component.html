@@ -1,0 +1,53 @@
+      <div class="mt-10 shadow sm:rounded-md">
+
+        <div class="bg-white px-4 py-5 sm:p-6">
+          <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+            {{'Варианты использования' | translate}}
+          </div>
+
+          <!-- start -->
+          <span class="block text-sm font-medium text-gray-700 mb-3">
+            {{'Выбранные варианты' | translate}}
+          </span>
+          <div style="position: relative; padding-bottom: 5px;"
+            class="flex flex-wrap justify-start items-center align-middle">
+
+            <ng-container *ngIf="selectedCategorys?.length === 0">
+              <app-filters-button-chip class="mr-3 mb-3" style="width: max-content;">
+                {{'Выберите варианты использования' | translate}}
+              </app-filters-button-chip>
+            </ng-container>
+
+
+            <ng-container *ngFor="let type of selectedCategorys ; let i=index">
+              <app-filters-button-chip class="mr-3 mb-3" style="width: max-content;" icon="tw_close"
+                (click)="removeItem(type)">
+                {{type.attributes.name}}
+              </app-filters-button-chip>
+            </ng-container>
+            <!-- end -->
+          </div>
+          <!-- end -->
+
+          <span class="block text-sm font-medium text-gray-700"
+            *ngIf="((allTypes) | filter_types:(selectedCategorys))?.length > 0">
+            {{'Все варианты использования' | translate}}
+          </span>
+          <div style="position: relative; padding-bottom: 5px;" class="flex flex-wrap mt-3">
+            <ng-container *ngFor="let type of ((allTypes) | filter_types:(selectedCategorys)); let i=index">
+              <app-chip-black class="mr-3 mb-3" style="width: max-content;" (click)="addItem(type)">
+                {{type.attributes.name}}
+              </app-chip-black>
+            </ng-container>
+            <!-- end -->
+          </div>
+
+
+        </div>
+        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+          <app-tw-button-third-without-icon iconPath="empty" (click)="updateCategoriesData()" [isDisabled]="isPending"
+            [isLoading]="isPending">
+            {{'Сохранить' | translate}}
+          </app-tw-button-third-without-icon>
+        </div>
+      </div>

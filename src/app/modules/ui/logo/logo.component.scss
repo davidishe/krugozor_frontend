@@ -1,0 +1,72 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  outline: none;
+}
+
+.nav-item {
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  border-radius: 30px;
+  background-color: var(--main);
+  color: white;
+  padding-left: 0px;
+
+  .icon {
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 100px;
+    transition: all ease-in-out 0.1s;
+  }
+}
+
+.nav-item:hover {
+  .icon {
+    animation-name: example;
+    animation-duration: 1.5s;
+  }
+}
+
+@keyframes example {
+  0% {
+    transform: scaleX(100%) scaleY(100%);
+  }
+  10% {
+    transform: scaleX(130%) scaleY(130%);
+  }
+
+  20% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+
+  30% {
+    transform: scaleX(130%) scaleY(130%);
+  }
+
+  40% {
+    transform: scaleX(110%) scaleY(110%);
+  }
+  50% {
+    transform: scaleX(130%) scaleY(130%);
+  }
+  60% {
+    transform: scaleX(130%) scaleY(130%);
+  }
+  70% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+  80% {
+    transform: scaleX(100%) scaleY(100%);
+  }
+  90% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+  100% {
+    transform: scaleX(100%) scaleY(100%);
+  }
+}

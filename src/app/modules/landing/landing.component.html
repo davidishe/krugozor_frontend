@@ -1,0 +1,45 @@
+<app-navbar class="z-30" style="z-index: 10;"></app-navbar>
+
+
+<div
+  class="mx-auto pt-32 pb-20 px-4 sm:px-6 max-w-6xl text-center h-full align-middle items-center justify-center flex">
+  <div class="items-center flex flex-col">
+    <h1 class="text-4xl leading-10 md:text-5xl font-bold tracking-tight text-gray-900 new-roman">
+      {{'Креаторбук' | translate}}
+      <br>
+      <!-- {{'' | translate}}
+      <br> -->
+      <!-- Start using our -->
+    </h1>
+    <p class="mt-6 text-slate-600 text-base leading-6 mx-auto md:max-w-full lg:max-w-screen-xl max-w-lg">
+      {{'сборник популярных просветительских проектов и авторов в России' | translate}}
+      <br>
+      {{'' | translate}}
+    </p>
+    <div class="mt-10 flex flex-col md:flex-row items-center justify-between w-fit">
+
+
+      <!-- <a class="rounded-full cursor-pointer m-3 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm
+        hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-indigo-600 transition  border border-indigo-600" >
+        {{'Посмотреть предложения' | translate}}
+      </a> -->
+
+      <a class="text-sm font-semibold leading-6 m-3  border border-indigo-200 text-indigo-500 hover:text-indigo-700 cursor-pointer hover:border-indigo-300 rounded-full
+        px-3.5 py-2.5 transition shadow-sm 
+        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        [routerLink]="['/dashboard/items' ]" style="width: 214.13px;">
+        {{'Продолжить' | translate}}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<br>
+
+
+<!-- <app-questions></app-questions>
+<app-landing-faq></app-landing-faq> -->
+<app-footer></app-footer>

@@ -1,0 +1,8 @@
+<img (mouseleave)="onBlur()" (mouseover)="onHover()"
+  class="h-6 w-6 rounded-full opacity-50 pointer-events-auto cursor-pointer transition-opacity hover:opacity-90"
+  src="./assets/svg/{{icon}}.svg" style="fill: red;">
+
+<span class="transition" *ngIf="isVisible"
+  style="position: absolute; width: max-content; pointer-events: none; top: -28px; right: 14px; background-color: black; padding: 4px 10px; color: white; border-radius: 100px;">
+  {{hintText}}
+</span>

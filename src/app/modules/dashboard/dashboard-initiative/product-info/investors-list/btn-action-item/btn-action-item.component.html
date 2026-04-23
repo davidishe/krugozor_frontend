@@ -1,0 +1,15 @@
+          <button type="button" class="rounded-md bg-white text-sm font-medium text-indigo-600
+            focus:outline-none hover:text-black items-center flex"
+            [ngClass]="{'pointer-events-none cursor-default': isDisabled, 'cursor-pointer': !isDisabled}">
+            <!--  -->
+            <span style="margin: 10px; margin-left: 0px;"
+              class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-gray-300 text-gray-400 hover:text-gray-600 hover:border-gray-600 transition">
+              <svg class="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg>
+            </span>
+            <div class="ml-4 text-sm font-normal text-gray-700 hover:text-indigo-700 hover:underline-offset-1">
+              <ng-content></ng-content>
+            </div>
+          </button>

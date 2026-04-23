@@ -1,0 +1,37 @@
+          <div>
+            <div class="shadow sm:overflow-hidden sm:rounded-md">
+              <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
+
+
+
+                <app-form-photo></app-form-photo>
+
+
+                <div class="grid grid-cols-6 gap-6">
+                  <app-form-text-input label="{{'Имя' | translate}}" [form]="form"
+                    [control_name]="form.get('firstName')" class="col-span-6 sm:col-span-3" form_ControlName="firstName"
+                    type="text">
+                  </app-form-text-input>
+                  <app-form-text-input label="{{'Фамилия' | translate}}" [form]="form"
+                    [control_name]="form.get('secondName')" form_ControlName="secondName"
+                    class="col-span-6 sm:col-span-3" type="text">
+                  </app-form-text-input>
+                </div>
+                <br>
+                <app-form-text-area rowsQuantity="4" label="{{'Описание профиля' | translate}}" [form]="form"
+                  [control_name]="form.get('userDescription')" form_ControlName="userDescription"
+                  description="{{'Напиши о себе что-нибудь интересное и веселое.' | translate}}"
+                  placeholder="{{'Не меньше 30 символов 😊' | translate}}">
+                </app-form-text-area>
+
+
+              </div>
+              <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+                <app-tw-button-third-without-icon iconPath="empty" (click)="updateData()" [isLoading]="isPending"
+                  [isDisabled]="isPending">
+                  {{'Сохранить' | translate}}
+                </app-tw-button-third-without-icon>
+              </div>
+
+            </div>
+          </div>

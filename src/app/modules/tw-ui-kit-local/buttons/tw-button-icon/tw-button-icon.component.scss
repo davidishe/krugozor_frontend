@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+}
+
+button {
+  opacity: 0.8;
+  transition: all ease-in-out 0.15s;
+}
+
+button:hover {
+  opacity: 1;
+}

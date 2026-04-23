@@ -1,0 +1,156 @@
+<app-navbar class="z-30" style="z-index: 10;"></app-navbar>
+
+<app-tw-page-layout title="{{'Чаты' | translate}}" description="{{'Чаты с пользователями' | translate}}."
+  backBtnText="{{'Назад' | translate}}">
+
+
+
+
+
+
+
+
+  <div class="relative w-full grid grid-cols-12 h-full">
+    <div class="hidden md:flex md:col-span-3 flex-col sm:hidden h-full">
+
+      <ng-container *ngFor="let chat of ((chatsData$ | async) | sortByOrder); let i=index">
+
+        <ng-container *ngIf="currentUserId !== +chat?.destinationUser?.id; else elseTemplate">
+          <app-user-card-header class="mb-2" [userToShow]="chat?.destinationUser" [isOnlineStatusHidden]="true"
+            (click)="goToUserSection(chat?.destinationUser?.id); readChatAsync(chat?.id);" [isSidebarMenu]="true"
+            [isSelected]="(+recepientId === +chat?.destinationUser?.id)" [chat]="chat" [userId]="+chat.authorUser?.id">
+          </app-user-card-header>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <app-user-card-header class="mb-2" [userToShow]="chat?.authorUser" [isOnlineStatusHidden]="true"
+            (click)="goToUserSection(chat?.authorUser?.id); readChatAsync(chat?.id);" [isSidebarMenu]="true"
+            [isSelected]="(+recepientId === +chat?.authorUser?.id)" [chat]="chat" [userId]="+chat.destinationUser?.id">
+          </app-user-card-header>
+        </ng-template>
+
+
+        <div>
+        </div>
+      </ng-container>
+
+
+
+      <ng-container *ngIf="(chatsData$ | async)?.length === 0 ">
+        <div
+          style="width: auto; align-items: center; vertical-align: middle; justify-content: center; height: 100%; display: flex;">
+          <span class="text-sm text-gray-700">
+            {{'Пока здесь пусто'}}
+          </span>
+        </div>
+      </ng-container>
+
+    </div>
+
+
+
+
+    <div style="overflow-y: hidden;" class="md:col-span-9 col-span-12 h-full">
+      <div class="inset-0 pb-16 max-h-screen bg-gray-50 h-full relative overflow-hidden">
+        <div class="flex justify-center align-top text-center sm:p-0 relative h-full">
+          <!-- style="margin-bottom: 41px;" -->
+
+          <ng-container>
+            <div class="w-full relative transform rounded-none bg-white text-left transition-all h-full"
+              style="padding-bottom: 0px; overflow: hidden;">
+
+              <div style="position: relative;" class="h-full">
+                <ng-container *ngIf="recepientId > 0">
+                  <div style="overflow-y: scroll;" class="bg-gray-50 min-h-full special-height h-full" #scrollMe
+                    id="scrollMe" [scrollTop]="scrollMe.scrollHeight">
+                    <ng-container *ngFor="let message of (currentChat?.messages); let i=index">
+
+                      <ng-container *ngIf="((currentUser$ | async)?.id === +message.authorId)">
+                        <app-message [userToShow]="(currentUser$ | async)" [isPrivateChat]="isPrivateChat"
+                          [elementId]="'message_' + i" [message]="message" [isMyMessage]="true">
+                          {{message.text}}
+                        </app-message>
+                      </ng-container>
+
+
+                      <ng-container *ngIf="((currentUser$ | async)?.id !== +message.authorId)">
+                        <app-message [isMyMessage]="false" [userToShow]="destinationUser"
+                          [isPrivateChat]="isPrivateChat" [elementId]="'message_' + i" [message]="message">
+                          {{message.text}}
+                        </app-message>
+                      </ng-container>
+
+
+                    </ng-container>
+                    <!-- end -->
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="!recepientId">
+                  <div
+                    class="bg-gray-50 min-h-max special-height flex items-center justify-center align-middle text-sm">
+                    {{'Выбери чат, чтобы начать разговор' | translate}}
+                  </div>
+                </ng-container>
+                <!-- end -->
+
+
+
+              </div>
+
+            </div>
+          </ng-container>
+
+
+
+        </div>
+
+        <form
+          class="justify-between items-center align-middle px-0 pt-3 pb-0 bottom-0 flex-col gap-y-2 md:flex-row gap-x-0 md:gap-x-3 block bg-white"
+          style="position: sticky; align-items: start; bottom: 16px; display: flex;">
+
+          <div class="bg-white py-5 spec-width-btns">
+            <div [formGroup]="form" style="width: 100%;">
+              <div class="relative rounded-md flex mb-0 w-full">
+                <input formControlName="messageText" [formControl]="form.get('messageText')" type="{{'text'}}"
+                  name="messageText" id="messageText"
+                  class=" pl-3 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full"
+                  autocomplete="off" placeholder="{{'Введи что-нибудь'}}" value='value' #input
+                  (keyup.enter)="sendMessage()">
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;"
+            class="gap-3 bg-white h-full align-middle items-center flex-col md:flex-row flex w-full md:w-max">
+            <app-tw-button-third iconPath="tw_message_white" class="cursor-pointer md:w-full min-w-full md:min-w-fit"
+              style="width: 100%; max-width: max-content;" [isDisabled]="form?.invalid" (click)="sendMessage()">
+              {{'Отправить' | translate}}
+            </app-tw-button-third>
+
+            <app-tw-button-third iconPath="attach_white" class="cursor-pointer  md:w-full min-w-full md:min-w-fit"
+              style="width: 100%; max-width: max-content;" [isDisabled]="form?.invalid" (click)="file.click()">
+              {{'Вложить' | translate}}
+            </app-tw-button-third>
+            <input class="hidden" type="file" #file placeholder="Выбери файл" (change)="uploadFile(file.files)"
+              style="display:none;">
+          </div>
+
+
+        </form>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</app-tw-page-layout>

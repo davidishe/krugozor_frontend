@@ -1,0 +1,40 @@
+<div class="map" style="display: block;">
+
+  <div class="map-wrapper">
+    <div style="display: flex; justify-content: space-between; height: 100%; width: 100%;">
+      <div class="map-left" style="width: 100%;
+    justify-content: flex-start; cursor: default;" [routerLink]="routeLink" id="layer">
+        <img src="{{iconPath}}">
+        <span [ngClass]="{'opacity': isDisabled}" [ngStyle]="{'font-weight': fontWeight}">
+          {{text}}
+        </span>
+      </div>
+    </div>
+
+
+    <div style="padding-left: 15px;" *ngIf="iconPathRight">
+      <ion-icon [src]="iconPathRight" (click)="isPopoverVisible = !isPopoverVisible"
+        style="font-size: 17px !important; cursor: pointer;">
+      </ion-icon>
+      <app-popover (select)="handleClick($event)" [isOpen]="isPopoverVisible" [options]="options" [width]="270"
+        [placement]="'right'">
+      </app-popover>
+    </div>
+    <br>
+  </div>
+
+  <div style="padding-left: 20px; padding-right: 20px; padding-bottom:  20px;">
+    <app-map style="border-radius: 20px;" [lat]="+lat" [lng]="+lng" [markerName]="markerName"></app-map>
+
+
+    <div
+      style="padding: 0 20px; background-color: #EAEAEA; margin-top: 20px; border-radius: 12px; height: 48px; display: flex; justify-content: flex-start; align-items: center; z-index: 2;">
+      dfsdfваы 23 выа
+    </div>
+  </div>
+
+
+
+
+
+</div>

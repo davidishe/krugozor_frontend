@@ -1,0 +1,33 @@
+          <form>
+            <div class="overflow-hidden shadow sm:rounded-md">
+              <div class="bg-white px-4 py-5 sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+
+                  <app-form-text-input [isWithIcon]="true" icon="tw_insta" label="Instagram" [form]="form"
+                    [control_name]="form.get('instagram')" class="col-span-6 sm:col-span-3"
+                    form_ControlName="instagram">
+                  </app-form-text-input>
+
+                  <app-form-text-input [isWithIcon]="true" icon="tw_telegram_black" label="Telegram" [form]="form"
+                    [control_name]="form.get('telegram')" class="col-span-6 sm:col-span-3" form_ControlName="telegram">
+                  </app-form-text-input>
+
+                  <app-form-text-input [isWithIcon]="true" icon="tw_facebook" label="Facebook" [form]="form"
+                    [control_name]="form.get('facebook')" class="col-span-6 sm:col-span-3" form_ControlName="facebook">
+                  </app-form-text-input>
+
+                  <app-form-text-input [isWithIcon]="true" icon="tw_facebook" label="{{'Номер телефона' | translate}}"
+                    [form]="form" [control_name]="form.get('phoneNumber')" class="col-span-6 sm:col-span-3"
+                    form_ControlName="phoneNumber">
+                  </app-form-text-input>
+
+                </div>
+              </div>
+              <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+                <app-tw-button-third-without-icon iconPath="empty" (click)="updateData()" [isLoading]="isPending"
+                  [isDisabled]="isPending">
+                  {{'Сохранить' | translate}}
+                </app-tw-button-third-without-icon>
+              </div>
+            </div>
+          </form>

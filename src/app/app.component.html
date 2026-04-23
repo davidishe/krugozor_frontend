@@ -1,0 +1,12 @@
+<app-tw-alert style="z-index: 1111;  
+    position: fixed;
+    width: 100%;
+    bottom: 0px;"></app-tw-alert>
+
+
+<router-outlet #body>
+</router-outlet>
+<!--  -->
+<ng-container *ngIf="unreadMessagesCount > 0">
+  <app-message-bar [unreadMessagesCount]="unreadMessagesCount"></app-message-bar>
+</ng-container>

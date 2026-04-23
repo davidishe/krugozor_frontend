@@ -1,0 +1,35 @@
+<div class="absolute inset-x-0 z-10 transform shadow-lg">
+  <div class="bg-white">
+    <div
+      class="mx-auto grid max-w-7xl gap-y-6 p-6 sm:grid-cols-2 sm:gap-8 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
+
+
+      <app-tw-big-icon title="Профиль"
+        description="Заполни свой профиль подробно, чтобы пользователи могли узнать о вас больше." iconPath="tw_user"
+        link="Настроить" [routerLink]="[ 'profile' ]" (click)="close()"></app-tw-big-icon>
+
+
+      <app-tw-big-icon title="Избранное"
+        description="Список услуг, добавленных вами в избранное, всегда можете посмотреть здесь."
+        iconPath="tw_heart_white" link="Перейти" (click)="close()"></app-tw-big-icon>
+
+      <app-tw-big-icon title="Заказы и отзывы"
+        description="Посмотри, на какие услуги ты уже делал ревью. Создавая отзывы, ты помогаешь другим пользователям платформы."
+        iconPath="tw_tag" link="Посмотреть" (click)="close()"></app-tw-big-icon>
+
+
+      <app-tw-big-icon title="Мои объекты"
+        description="Объявления, которые ты размещал на платформе. Ты можешь добавлять новые объявления в этом разделе."
+        iconPath="tw_square_plus_white" link="Посмотреть" [routerLink]="[ 'requests' ]" (click)="close()">
+      </app-tw-big-icon>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="bg-gray-500 bg-opacity-75 transition-opacity"
+  style="position: absolute; width: 100%; height: 100vh; overflow-y: hidden;" (click)="close()">
+</div>

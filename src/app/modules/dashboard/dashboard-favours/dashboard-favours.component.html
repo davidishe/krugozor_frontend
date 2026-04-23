@@ -1,0 +1,59 @@
+<app-tw-page-layout title="{{'Избранное' | translate}}"
+  description="{{'Заявки на продажу, которые были добавлены тобой в избранное' | translate}}."
+  backBtnText="{{'Назад' | translate}}">
+
+
+  <div class="flow-root">
+    <div class="inline-block min-w-full align-middle">
+
+      <ng-container *ngIf="(isLoading)">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+          <img src="./assets/svg/spinner.svg" alt="">
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="(favours?.length === 0)">
+        <div style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+
+          <app-tw-empty subtitle="{{'Ты пока ничего не добавил в избранное' | translate}}"
+            icon="./assets/svg/tw_doc_black.svg" title="{{'Пока здесь пусто' | translate}}">
+
+          </app-tw-empty>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngIf="isLoading === false">
+        <div class="mt-6 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 xl:gap-x-10 scroll-smooth"
+          style="position: relative;">
+          <ng-container *ngFor="let item of (this.favours?.data?.proposals?.data); let i=index">
+            <app-tw-card-wide [routerLink]="['/dashboard/items', item.id  ]" name="{{item?.attributes?.name}}"
+              description="{{item?.attributes?.description}}" [imageUri]="imageUri"
+              [mediumImageUrl]="item.attributes?.images?.data[0]?.attributes?.formats.small?.url"
+              createdAt="{{item.attributes.createdAt | datelocale}}" specialStatusText="{{'Продано' | translate}}"
+              [isSpecialStatus]="+item?.attributes?.proposal_status?.data?.id === 4">
+            </app-tw-card-wide>
+          </ng-container>
+        </div>
+
+        <ng-container *ngIf="this.favours?.data?.proposals?.data?.length === 0">
+          <app-tw-empty title="{{'Пусто' | translate}}"
+            subtitle="{{'Ты пока что ничего не добавлял в избранное' | translate}}" [isBtnDisabled]="true"
+            icon="./assets/svg/tw_doc_black.svg">
+            <!-- {{'Продолжить' | translate}} -->
+          </app-tw-empty>
+        </ng-container>
+
+
+      </ng-container>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+</app-tw-page-layout>

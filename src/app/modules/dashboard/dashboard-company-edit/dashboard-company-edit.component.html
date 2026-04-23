@@ -1,0 +1,154 @@
+<ng-container *ngIf="currentCompany">
+  <div class="bg-white">
+    <div class="mx-auto max-w-full py-8  sm:py-24 px-4 sm:px-6 lg:px-16 overflow-hidden mt-14 md:mt-5 min-h-screen">
+
+      <app-filters-button-chip class="mb-3" icon="move_left" style="width: fit-content;" [isReversed]="true" backButton>
+        {{ 'Назад' | translate }}
+      </app-filters-button-chip>
+
+      <div class="mb-16">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+
+          <ng-container *ngIf="currentCompany.data.attributes.name?.length === null">
+            {{'Редактирование профиля компании'  | translate}}
+          </ng-container>
+          <ng-container *ngIf="currentCompany.data.attributes.isTechnical === false">
+            {{currentCompany.data.attributes.name}}
+          </ng-container>
+
+        </h1>
+        <div class="mt-2 text-sm text-gray-500 w-full flex">
+          {{'Настрой профиль своей компании' | translate}}
+        </div>
+      </div>
+
+
+
+
+
+      <div class="mt-10">
+
+
+        <app-dashboard-company-edit-avatar [currentCompany]="currentCompany"></app-dashboard-company-edit-avatar>
+
+
+
+
+        <form>
+          <div class="overflow-hidden shadow sm:rounded-md">
+            <div class="bg-white px-4 py-5 sm:p-6">
+              <div class="grid grid-cols-6 gap-6">
+
+
+
+                <!-- аватарка picture -->
+
+
+                <!-- name -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Название" [form]="form"
+                    [control_name]="form.get('name')" class="col-span-6 sm:col-span-3" form_ControlName="name"
+                    type="text">
+                  </app-form-text-input>
+                </div>
+
+                <!-- website -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Сайт" [form]="form"
+                    [control_name]="form.get('website')" class="col-span-6 sm:col-span-3" form_ControlName="website"
+                    type="text">
+                  </app-form-text-input>
+                </div>
+
+                <!-- description -->
+                <div class="col-span-6 sm:col-span-6">
+                  <app-form-text-area rowsQuantity="5" label="{{'Описание' | translate}}" [form]="form"
+                    [control_name]="form.get('description')" form_ControlName="description"
+                    description="{{'Введите что-нибудь интересное про твое агентство недвижимости.' | translate}}"
+                    placeholder="{{'Постарайтесь заполнить подробнее, если хотите заинтересовать клиентов' | translate}}">
+                  </app-form-text-area>
+                </div>
+
+                <!-- address -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Адрес" [form]="form"
+                    [control_name]="form.get('address')" class="col-span-6 sm:col-span-3" form_ControlName="address"
+                    type="text">
+                  </app-form-text-input>
+                </div>
+
+
+                <!-- mail -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Email" [form]="form"
+                    [control_name]="form.get('email')" class="col-span-6 sm:col-span-3" form_ControlName="email"
+                    type="email">
+                  </app-form-text-input>
+                </div>
+
+
+                <!-- phone -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Телефон" [form]="form"
+                    [control_name]="form.get('phone')" class="col-span-6 sm:col-span-3" form_ControlName="phone"
+                    type="number">
+                  </app-form-text-input>
+                </div>
+
+                <!-- instagramCompanyName -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Instragram" [form]="form"
+                    [control_name]="form.get('instagramCompanyName')" class="col-span-6 sm:col-span-3"
+                    form_ControlName="instagramCompanyName" type="text">
+                  </app-form-text-input>
+                </div>
+
+                <!-- telegramCompanyName -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Telegram" [form]="form"
+                    [control_name]="form.get('telegramCompanyName')" class="col-span-6 sm:col-span-3"
+                    form_ControlName="telegramCompanyName" type="text">
+                  </app-form-text-input>
+                </div>
+
+                <!-- facebookCompanyName -->
+                <div class="col-span-6 sm:col-span-3">
+                  <app-form-text-input [isWithIcon]="true" label="Facebook" [form]="form"
+                    [control_name]="form.get('facebookCompanyName')" class="col-span-6 sm:col-span-3"
+                    form_ControlName="facebookCompanyName" type="text">
+                  </app-form-text-input>
+                </div>
+
+              </div>
+
+              <app-dashboard-company-edit-cities [selectedCities]="currentCompany?.data?.attributes?.cities?.data"
+                [currentProposal]="currentCompany" (emitSelectedCitites)="setSelectedCities($event)">
+              </app-dashboard-company-edit-cities>
+
+            </div>
+            <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+              <app-tw-button-third-without-icon iconPath="empty" (click)="updateCompanyInfo()" [isLoading]="isPending"
+                [isDisabled]="isPending || isLoading || isCompanyProfileCompleted()">
+                {{'Сохранить' | translate}}
+              </app-tw-button-third-without-icon>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</ng-container>
+
+
+
+<ng-container *ngIf="!currentCompany">
+  <app-spinner></app-spinner>
+</ng-container>

@@ -1,0 +1,66 @@
+<div class="shadow sm:rounded-md mt-10">
+  <div class="bg-white px-4 py-5 sm:p-6">
+
+    <!-- start -->
+    <div style="position: relative; padding-bottom: 5px;">
+
+      <!-- страны начало -->
+      <form>
+        <div class="sm:rounded-md">
+          <div class="bg-white">
+            <fieldset>
+              <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                {{'Локации' | translate}}
+              </div>
+              <div class="grid grid-cols-2">
+
+                <ng-container *ngFor="let country of (countrys$ | async); let i=index">
+                  <app-tw-checkbox class="mt-2 mb-2" (checkboxChanged)="setCountrys($event, country)"
+                    [id]="country.id + '_country'" [selector]="2" [isChecked]="isCountrySelected(country)">
+                    {{country.attributes.name }}
+                  </app-tw-checkbox>
+                </ng-container>
+
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </form>
+      <!-- страны завершение -->
+
+
+      <!-- citites finish -->
+      <ng-container>
+        <form>
+          <div class="sm:rounded-md">
+            <div class="bg-white">
+              <div class="grid grid-cols-1">
+                <app-my-proposal-page-cities-select [items]="citiesForDropDown"
+                  [selectedCitiesForCheck]="selectedCities" (setSelectedCities)="setSelectedCities($event)"
+                  [initialCities]="selectedCities" [initialCountries]="selectedCountries">
+                </app-my-proposal-page-cities-select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+
+      <!-- citites end -->
+      <!-- end -->
+    </div>
+
+    <!-- end -->
+
+
+
+
+
+  </div>
+  <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 justify-end flex">
+    <app-tw-button-third-without-icon iconPath="empty" (click)="updateCitiesData()" [isLoading]="isPending"
+      [isDisabled]="isPending">
+      {{'Сохранить' | translate}}
+    </app-tw-button-third-without-icon>
+  </div>
+</div>

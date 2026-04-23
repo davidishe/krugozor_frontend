@@ -1,0 +1,147 @@
+        <nav class="bg-white border-b-2 border-gray-100 z-30" style="z-index: 30 !important;">
+          <div class="mx-auto  px-4 sm:px-6 lg:px-16">
+            <div class="flex h-16 justify-between">
+              <div class="flex">
+                <div class="flex flex-shrink-0 items-center">
+                  <app-logo (click)="goToMain()"></app-logo>
+                </div>
+              </div>
+
+
+              <!-- иконки в правой части меню -->
+              <div class="flex items-center">
+                <div class="flex md:ml-4 md:flex md:flex-shrink-0 md:items-center">
+
+                  <!-- <app-navbar-feedback></app-navbar-feedback> -->
+
+                  <ng-container *ngIf="false">
+                    <app-navbar-language-select class="relative ml-3" *ngIf="isLoaded">
+                    </app-navbar-language-select>
+                  </ng-container>
+
+                  <!-- {{authService.logedIn() | json}} -->
+
+                  <!-- Profile dropdown -->
+                  <app-tw-profile-badge-login *ngIf="isLoaded && !(currentUser$ | async)"
+                    [routerLink]="[ '/auth/login' ]" class="relative ml-3">
+                  </app-tw-profile-badge-login>
+
+
+                  <app-tw-profile-badge *ngIf="(currentUser$ | async)" class="relative ml-3" id="user-menu-wrapper">
+
+                    <ng-container
+                      *ngIf="(this.profileMenuStatus$ | async)?.status && (this.profileMenuStatus$ | async)?.popoverType === 'menu'">
+
+                      <div
+                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-2 overflow-hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+
+                        <div class="block px-4 py-1 text-sm text-gray-700 border-b cursor-default">
+                          <div class="py-2 flex-col flex">
+                            <span class="font-bold mb-2">
+                              {{(currentUser$ | async)?.firstName }}
+                              {{(currentUser$ | async)?.secondName }}
+                            </span>
+                            <span class="text-xs text-gray-500">
+                              {{(currentUser$ | async)?.email }}
+                            </span>
+                          </div>
+                        </div>
+
+                        <app-navbar-menu-item [routerLink]="[ '/dashboard/settings' ]" (click)="close()">
+                          {{'Мой профиль' | translate}}
+                        </app-navbar-menu-item>
+
+                        <app-navbar-menu-item [routerLink]="[ '/dashboard/favours' ]" (click)="close()">
+                          {{'Избранное' | translate}}
+                        </app-navbar-menu-item>
+
+                        <ng-container *ngIf="!(currentUser$ | async)?.isTechnical">
+                          <app-navbar-menu-item [routerLink]="[ '/dashboard/proposals' ]" (click)="close()">
+                            {{'Мои объекты' | translate}}
+                          </app-navbar-menu-item>
+                        </ng-container>
+
+
+                        <app-navbar-menu-item (click)="goToMessenger()">
+                          {{'Чаты' | translate}}
+                        </app-navbar-menu-item>
+
+                        <ng-container *ngIf="!(currentUser$ | async)?.isTechnical">
+                          <app-navbar-menu-item [routerLink]="[ '/dashboard/agent' ]" (click)="close()">
+                            {{'Заявки покупателей' | translate}}
+                          </app-navbar-menu-item>
+                        </ng-container>
+
+                        <app-navbar-menu-item [routerLink]="[ '/dashboard/requests' ]" (click)="close()">
+                          {{'Планирую купить' | translate}}
+                        </app-navbar-menu-item>
+
+                        <app-navbar-menu-item [routerLink]="[ '/dashboard/donate' ]" (click)="close()">
+                          {{'Помочь проекту' | translate}}
+                        </app-navbar-menu-item>
+
+                        <app-navbar-menu-item (click)="authService.logout()">
+                          {{'Выйти' | translate}}
+                        </app-navbar-menu-item>
+
+
+                        <div style="width: 100%; height: 100vh;  position: fixed;
+                                  left: 0;
+                                  top: 0;
+                                  z-index: -1;
+                                  pointer-events: all;
+                                  " (click)="close()">
+                        </div>
+
+
+
+
+                      </div>
+
+                    </ng-container>
+
+                  </app-tw-profile-badge>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <app-navbar-mobile></app-navbar-mobile> -->
+        </nav>
+
+        <app-popover>
+          <app-lang-select></app-lang-select>
+        </app-popover>
+
+        <app-popover *ngIf="(navbarItems$ | async)">
+          <app-filters-select [navbarItems]="(navbarItems$ | async)"></app-filters-select>
+        </app-popover>
+
+        <app-popover>
+          <app-modal-filters-select></app-modal-filters-select>
+        </app-popover>
+
+        <app-popover>
+          <app-navbar-feedback-content>
+            Напиши в телеграмм администратору <a target="_blank"
+              class="text-indigo-600 cursor-pointer hover:text-indigo-700 hover:underline"
+              href="https://t.me/krugozor_admin_space">@krugozor_admin_space</a> <br>
+            если есть вопросы или предложения <br> по улучшению
+          </app-navbar-feedback-content>
+        </app-popover>
+
+
+        <app-popover>
+          <app-dashboard-get-auth></app-dashboard-get-auth>
+        </app-popover>
+
+
+        <ng-container *ngIf="(this.popoverState$ | async)?.status && (this.popoverState$ | async)?.blackWrapper">
+          <div class="transition-opacity backdrop-blur-md bg-gray-800 bg-opacity-70 pointer-events-none"
+            style="position: absolute; width: 100%; height: 100vh; top: 0px; left: 0px;">
+          </div>
+        </ng-container>

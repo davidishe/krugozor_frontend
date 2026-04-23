@@ -1,0 +1,112 @@
+  <ng-container *ngIf="+item?.attributes?.proposal_status?.data?.id === 4">
+    <div class="aspect-[16/9] w-full rounded-2xl object-cover sm:aspect-[2/1] lg:aspect-[3/2]" style="width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;">
+      <app-chip-black [isCursorDefaultStyle]="true">
+        Продано
+      </app-chip-black>
+    </div>
+  </ng-container>
+
+  <article
+    class="flex flex-col items-start justify-between cursor-pointer card opacity-90 hover:opacity-100 transition-transform"
+    [ngClass]="{'opacity-30 hover:opacity-30': +item?.attributes?.proposal_status?.data?.id === 4}">
+
+
+
+
+
+
+    <div class="relative w-full">
+
+      <ng-container
+        *ngIf="(item.attributes.images.data[0]?.attributes?.formats?.medium?.url?.length > 0); else smallTemplate">
+        <img src="{{imageUrl + item.attributes.images.data[0]?.attributes.formats.medium?.url}}"
+          alt="{{ item?.proposalType }}"
+          class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+      </ng-container>
+
+      <ng-template #smallTemplate>
+        <ng-container *ngIf="(item.attributes.images.data[0]?.attributes.formats.small?.url); else elseTemplate">
+          <img src="{{imageUrl + item.attributes.images.data[0]?.attributes.formats.small?.url}}"
+            alt="{{ item?.proposalType }}"
+            class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+        </ng-container>
+      </ng-template>
+
+
+      <ng-template #elseTemplate>
+        <img src="./assets/placeholders/placeholder.png" alt="{{ item?.proposalType }}"
+          class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+      </ng-template>
+
+
+      <ng-container *ngIf="item === null">
+        <img src="./assets/placeholders/placeholder.png" alt="{{ item?.proposalType }}"
+          class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+      </ng-container>
+
+
+
+
+      <div class="absolute inset-0 rounded-2xl "></div>
+    </div>
+    <div class="max-w-xl">
+      <div class="mt-4 flex items-center gap-x-4 text-xs">
+        <div class="text-gray-500">
+          {{ createdAt  }}
+        </div>
+
+        <div style="position: absolute; left: 5px; top: 5px;">
+          <app-tw-badge-small isWhite="true" *ngIf="item.status" style="position: relative;">
+            <!-- {{item.status}} -->
+          </app-tw-badge-small>
+        </div>
+      </div>
+
+      <div class="mt-4 flex-wrap flex items-center gap-x-4 gap-y-3 text-xs">
+
+        <ng-container *ngFor="let type of item.attributes.proposal_types.data">
+          <a class="relative z-0 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600">
+            {{type.attributes.name}}
+          </a>
+        </ng-container>
+      </div>
+
+
+      <div class="group relative">
+        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+          <a>
+            <span class="absolute inset-0"></span>
+            {{item.attributes.name}}
+          </a>
+        </h3>
+        <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600" *ngIf="item.attributes.description">
+          <ng-container *ngIf="item.attributes.description.length >= 100">
+            {{ item.attributes.description  | slice:0:100 }}...
+          </ng-container>
+          <ng-container *ngIf="item.attributes.description.length < 100">
+            {{ item.attributes.description  | slice:0:100 }}
+          </ng-container>
+        </p>
+      </div>
+      <div class="relative mt-8 flex items-center gap-x-4">
+        <!-- <img src="{{item.author.pictureUrl | secure | async}}" alt="" class="h-10 w-10 rounded-full bg-gray-100"> -->
+        <div class="text-sm leading-6">
+          <p class="font-semibold text-gray-900">
+            <a>
+              <span class="absolute inset-0"></span>
+              <!-- {{item.author.agencyName}} -->
+            </a>
+          </p>
+          <!-- <p class="text-gray-600 text-xs">{{item.city}}</p> -->
+        </div>
+      </div>
+    </div>
+  </article>

@@ -1,0 +1,9 @@
+<div class="amenitie"
+  [ngClass]="{'shadow-hover': isShadowHover, 'pointer': isPointerOn, 'dark-hover': isShadowHoverDark }">
+  <div class="img-wrapper">
+    <img [src]="iconPath" alt="">
+  </div>
+  <span style="font-weight: 600; font-size: 17px; width: max-content;">
+    {{name}}
+  </span>
+</div>

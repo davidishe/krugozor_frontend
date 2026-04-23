@@ -1,0 +1,9 @@
+<button class="btn-small" [disabled]="disabled" type="{{type}}"
+  [ngStyle]="{'background-color': bgcolor, 'color': font, 'border-color': borderColor }"
+  [ngClass]="{'width': isFlexWidth}">
+  <i *ngIf="icon" class="material-icons">{{icon}}</i>
+
+
+  <mat-spinner *ngIf="isPending" diameter=22></mat-spinner>
+  <img style="width: 22px; height: 22px;" *ngIf="svg && !isPending" src="{{svg}}" aria-hidden="true">
+</button>

@@ -1,0 +1,7 @@
+<button class="btn-small" [disabled]="disabled" type="{{type}}"
+  [ngStyle]="{'background-color': bgcolor, 'color': font, 'border-color': borderColor }"
+  [ngClass]="{'width': isFlexWidth}">
+  <i *ngIf="icon" class="material-icons">{{icon}}</i>
+  <img *ngIf="svg" src="{{svg}}" aria-hidden="true">
+  <span>{{text}}</span>
+</button>

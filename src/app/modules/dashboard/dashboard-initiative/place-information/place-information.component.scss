@@ -1,0 +1,23 @@
+.place-information {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  // width: max-content;
+  // width: 100%;
+
+  @media (max-width: 1200px) {
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+  }
+
+  @media (max-width: 930px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 538px) {
+    display: flex;
+    flex-direction: column;
+  }
+}

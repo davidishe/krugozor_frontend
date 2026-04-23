@@ -1,0 +1,43 @@
+<div [formGroup]="form">
+  <div class="relative mt-10 rounded-md  flex mb-5 sm:mt-5 md:mt-5">
+    <input (keyup)="onChanged($event)" #input_autocomplete [formControl]="control_name" type="text" name="text"
+      id="text" class="block w-full rounded-full border-gray-600 pr-25 pl-5 text-gray-800 placeholder-gray-400
+        sm:text-lg md:text-lg focus:outline-none focus:border-indigo-700" autocomplete="off"
+      placeholder="{{'Введи текст' | translate}}" [value]="'sdfsdf'" aria-invalid="true" aria-describedby="email-error"
+      (keydown.enter)="searchTextGQL($event)">
+    <div class="invisible absolute inset-y-0 right-24 flex items-center close"
+      style="cursor: pointer !important; pointer-events: fill; pointer-events: none;">
+      <img class="h-3 w-3" src="assets/svg/close.svg" alt="" (click)="closeSearch();" *ngIf="this.isItemAvailable"
+        style="pointer-events: all;">
+    </div>
+    <app-tw-button [isDisabled]="!form.get('search').value" isRounded="true" isLarge="true" class="ml-3"
+      (click)="searchTextGQL($event)" isBoldBorder="true">
+      {{'Найти' | translate }}
+    </app-tw-button>
+    <app-tw-button isRounded="true" isLarge="true" class="ml-3" (click)="toggleFiltersModal()" isBoldBorder="true"
+      [isDisabled]="proposalService.getQueryParams().categorys.length < 0">
+      {{'Фильтры' | translate }}
+    </app-tw-button>
+
+
+  </div>
+  <!-- <p class="mt-2 text-sm text-red-600" id="email-error">Your password must be less than 4 characters.</p> -->
+</div>
+
+
+
+
+
+
+<!-- <ion-item class="ion-no-padding" lines="none" [formGroup]="form" (click)="isItemAvailable = true">
+  <ion-label *ngIf="activateLabel" position="stacked">{{label}}</ion-label>
+  <ion-label position="stacked" style="pointer-events: none;"></ion-label>
+
+  <ion-input class="input" [type]="type" [formControlName]="control_name" [placeholder]="placeholder"
+    #input_autocomplete id="input_autocomplete" [name]="control_name" (ionInput)="checkInput($event.target.value)">
+  </ion-input>
+
+  <img src="assets/svg/close.svg" alt=""
+    style="position: absolute; right: 10px; top: 30%; cursor: pointer; padding: 5px; z-index: 100;"
+    (click)="closeSearch();" *ngIf="this.isItemAvailable">
+</ion-item> -->

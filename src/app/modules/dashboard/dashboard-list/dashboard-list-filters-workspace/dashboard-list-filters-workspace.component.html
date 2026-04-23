@@ -1,0 +1,137 @@
+<app-tw-input-search [form]="form" [control_name]="form.get('search')" class="mb-7"></app-tw-input-search>
+
+
+<div class="mx-auto justify-start inline-flex  sm:flex sm:items-start flex-wrap mt-5" style="width: 100%;">
+
+  <!--  -->
+  <!-- здесь показываем фильтры, которые были выбраны пользователем -->
+  <!--  -->
+  <div class="mt-4 flex w-full" style="display: contents;">
+    <ng-container *ngIf="(queryParams$ | async).categorys.length > 0">
+      <ng-container *ngFor="let cat of ((queryParams$ | async) | breadcrumbs)">
+        <app-filters-button-chip class="mr-3 mb-3" (click)="setCategory(cat)">
+          {{cat.attributes.name}}
+        </app-filters-button-chip>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.categorys.length > 0">
+      <ng-container *ngFor="let category of (queryParams$ | async)?.categorys; let i=index">
+        <app-filters-button-chip class="mr-3 mb-3" style="width: fit-content;" icon="tw_close" (click)="1">
+          {{ category.attributes.name }}
+        </app-filters-button-chip>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="(queryParams$ | async)?.isRealBussinessEnabled">
+      <app-filters-button-chip class="mr-3 mb-3" style="width: fit-content;" icon="tw_close"
+        (click)="removeIsBussinessEnabled()">
+        {{'Действующий бизнеса' | translate}}
+      </app-filters-button-chip>
+    </ng-container>
+
+
+    <ng-container *ngIf="(queryParams$ | async)?.selectedProposalTypes.length > 0">
+      <ng-container *ngFor="let item of (queryParams$ | async)?.selectedProposalTypes; let i=index">
+        <app-filters-button-chip class="mr-3 mb-3" style="width: fit-content;" icon="tw_close"
+          (click)="removeSelectedProposalType(item)">
+          {{ item.attributes.name }}
+        </app-filters-button-chip>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="(queryParams$ | async)?.selectedAmenities.length > 0">
+      <ng-container *ngFor="let item of (queryParams$ | async)?.selectedAmenities; let i=index">
+        <app-filters-button-chip class="mr-3 mb-3" style="width: fit-content;" icon="tw_close"
+          (click)="removeSelectedAmenitie(item)">
+          {{ item.attributes.name }}
+        </app-filters-button-chip>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="(queryParams$ | async)?.minPlaceArea > 0">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="deleteMinimalAreaPlace()">
+        {{'Мин. площадь: ' | translate}} {{ (queryParams$ | async)?.minPlaceArea }}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.maxPlaceArea > 0">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="deleteMaximalAreaPlace()">
+        {{'Макс. площадь: ' | translate}} {{ (queryParams$ | async)?.maxPlaceArea }}
+      </app-filters-button-chip>
+    </ng-container>
+
+
+
+    <ng-container *ngIf="(queryParams$ | async).text">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="closeSearchText()">
+        {{ (queryParams$ | async).text }}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.minimalPrice > 0">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="deleteMinimalPrice()">
+        {{'Мин. цена: ' | translate}} {{ (queryParams$ | async)?.minimalPrice }}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.maximalPrice > 0">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="deleteMaximalPrice()">
+        {{'Макс. цена: ' | translate}} {{ (queryParams$ | async)?.maximalPrice }}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.isAscending">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="removeAscendingSort()">
+        {{'По возрастанию' | translate}}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(queryParams$ | async)?.isDescending">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="removeDescendingSort()">
+        {{'По убыванию' | translate}}
+      </app-filters-button-chip>
+    </ng-container>
+
+
+
+    <ng-container *ngFor="let city of (queryParams$ | async)?.selectedCities; let i=index">
+      <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="removeSpecificCity(city)">
+        {{ city.attributes.name }}
+      </app-filters-button-chip>
+    </ng-container>
+
+    <ng-container *ngIf="(proposalService.isAnythingInFiltersAdded() && (queryParams$ | async).defaultState === false)">
+      <app-filters-button class="mr-3 mb-3" icon="close_white"
+        (click)="proposalService.cleanAllFilters(); closeSearchText();">
+        {{'Сбросить все' | translate}}
+      </app-filters-button>
+    </ng-container>
+
+    <ng-container
+      *ngIf="( ((this.responseData$ | async)?.data?.proposals?.data.length) > 0) && (queryParams$ | async).defaultState === false">
+      <app-sorting-button icon="tw_arrow_up_down_white">
+        {{'Цена' | translate}}
+      </app-sorting-button>
+    </ng-container>
+
+
+
+  </div>
+  <!--  -->
+  <!-- завершение: здесь показываем фильтры, которые были выбраны пользователем -->
+  <!--  -->
+
+</div>
+
+<!-- <app-filters-button class="mr-3 mb-3" (click)="toggleFiltersModal();" icon="tw_filter">
+    {{'Фильтры' | translate}}
+  </app-filters-button> -->
+<!-- 
+  <app-filters-button class="mr-3 mb-3" *ngIf="proposalService.countAllFilters() > 0" (click)="cleanFilters();"
+    icon="tw_close">
+    {{ 'Сбросить' | translate}}
+  </app-filters-button> -->

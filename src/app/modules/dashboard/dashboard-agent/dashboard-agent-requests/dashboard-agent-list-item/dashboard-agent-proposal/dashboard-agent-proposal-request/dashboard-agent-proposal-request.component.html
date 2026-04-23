@@ -1,0 +1,134 @@
+      <app-tw-page-layout title="{{'Заявка на покупку в складчину' | translate}}"
+        description="{{'Здесь вы можете управлять завкой от потенциального инвестора. Вы можете ее предварительно одобрить или отклонить, если по итогам консультации не договорились о сделке' | translate}}."
+        [specialInfo]="request?.status" backBtnText="{{'Назад' | translate}}">
+
+
+        <div class="overflow-hidden rounded-lg bg-white shadow mb-3">
+          <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
+          <div class="bg-white p-6">
+            <div class="sm:flex sm:items-center sm:justify-between">
+              <div class="sm:flex sm:space-x-5">
+                <div class="flex-shrink-0">
+                  <img class="mx-auto h-20 w-20 rounded-full" src="{{request?.investor.pictureUrl}}" alt="">
+                </div>
+                <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                  <!-- <p class="text-sm font-medium text-gray-600">{{'Автор заявки' | translate}}</p> -->
+                  <p class="text-xl font-bold text-gray-900 sm:text-xl">
+                    {{request?.investor?.firstName}}
+                    {{request?.investor?.secondName}}
+                  </p>
+                  <p class="text-sm font-medium text-gray-600">
+                    {{request?.investor.userDescription}}
+                  </p>
+                </div>
+              </div>
+              <div class="mt-5 flex justify-center sm:mt-0">
+                <!-- <a 
+                  class="flex items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  View
+                  profile
+                </a> -->
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            <div class="px-6 py-5 text-center text-sm font-medium">
+              <span class="text-gray-900">
+                {{request?.shareValue | currency}}
+              </span>
+            </div>
+            <div class="px-6 py-5 text-center text-sm font-medium">
+              <span class="text-gray-900">
+                {{request?.createdAt | datelocale}}
+              </span>
+            </div>
+            <div class="px-6 py-5 text-center text-sm font-medium">
+              <span class="text-gray-900">
+                {{request?.investor.email}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- actions -->
+        <div class="bg-white shadow sm:rounded-lg">
+
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">
+              {{'Держите заявку в актуальном статусе, чтобы другие пользователи могли эту актуальную информацию' | translate}}
+            </h3>
+            <div class="mt-2 max-w-xl text-sm text-gray-500">
+
+
+              <div class="text-sm text-gray-700 mb-3">
+                Для уточнения информации свяжитесь с пользователем
+              </div>
+              <div class="text-sm text-gray-700 mb-3" *ngIf="request?.investor.telegramUserName">
+                {{request?.investor?.telegramUserName}}
+              </div>
+              <div class="text-sm text-gray-700 mb-3" *ngIf="request?.investor.instagramUserName">
+                {{request?.investor?.instagramUserName}}
+              </div>
+              <div class="text-sm text-gray-700 mb-3" *ngIf="request?.investor.facebookUserName">
+                {{request?.investor?.facebookUserName}}
+              </div>
+              <div class="text-sm text-gray-700 mb-3" *ngIf="request?.investor.pnoneNumber">
+                {{request?.investor?.pnoneNumber}}
+              </div>
+
+
+            </div>
+
+
+
+            <ng-container *ngIf="proposalProfile?.proposalProfileStatusId < 3">
+              <div class="mt-5 flex-col md:flex-row md:flex space-y-3 md:space-y-0">
+
+                <ng-container *ngIf="request?.requestStatusId === 1">
+                  <app-tw-button-third-without-icon iconPath="empty" (click)="changeRequstToStatus(2)"
+                    [isLoading]="isPending" [isDisabled]="isPending || isLoading" class="mr-3">
+                    {{'Предварительно одобрить' | translate}}
+                  </app-tw-button-third-without-icon>
+
+                  <app-tw-button-third-without-icon iconPath="empty" (click)="changeRequstToStatus(5)"
+                    [isLoading]="isPending" [isDisabled]="isPending || isLoading" class="mr-3">
+                    {{'Отклонить' | translate}}
+                  </app-tw-button-third-without-icon>
+
+                  <app-tw-button-third-without-icon iconPath="empty" (click)="goToChangeRequstAmmount()"
+                    [isLoading]="isPending" [isDisabled]="isPending || isLoading">
+                    {{'Изменить сумму' | translate}}
+                  </app-tw-button-third-without-icon>
+                </ng-container>
+
+                <ng-container *ngIf="request?.requestStatusId === 2">
+                  <app-tw-button-third-without-icon iconPath="empty" (click)="changeRequstToStatus(1)"
+                    [isLoading]="isPending" [isDisabled]="isPending || isLoading">
+                    {{'Вернуть на предыдущий статус' | translate}}
+                  </app-tw-button-third-without-icon>
+                </ng-container>
+
+              </div>
+            </ng-container>
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </app-tw-page-layout>
+
+
+      <app-popover>
+        <app-dashboard-agent-proposal-request-change (changeValue)="changeValue($event)">
+        </app-dashboard-agent-proposal-request-change>
+      </app-popover>

@@ -1,0 +1,55 @@
+<div class="page">
+
+  <div class="header">
+    items
+  </div>
+  <div class="content"
+    style="justify-content: center;vertical-align: middle; align-items: center; justify-content: center; display: flex; flex-direction: column;">
+
+
+    <ng-container *ngIf="language_initiated">
+
+      <h1>
+        {{ 'pages.auth.registration' | translate }}
+      </h1>
+
+      <div class="info">
+        {{ 'pages.auth.have_account' | translate }}
+        <a routerLink="/auth/login"> {{ 'pages.auth.login' | translate }} </a>
+      </div>
+
+      <form [formGroup]="form" style="width: 100%;">
+        <ion-item lines="none">
+          <ion-label position="stacked">Telegramm account</ion-label>
+          <ion-input class="input" type="text" formControlName="inputLogin" [type]="'text'" placeholder="@username">
+          </ion-input>
+        </ion-item>
+        <div class="submit-button">
+          <app-mat-btn-small text="{{ 'pages.auth.with_telegramm' | translate }}" bgcolor="#007aff" font="white"
+            isFlexWidth=true [disabled]="!form.valid || isPending.email" (click)="submitRegister()"
+            [isPending]="isPending.email">
+          </app-mat-btn-small>
+        </div>
+
+      </form>
+
+
+    </ng-container>
+
+  </div>
+  <div class="footer">
+    <div class="text-wrapper">
+      {{'pages.auth.juridical.text_1'| translate}}
+      "{{'pages.auth.with_apple' | translate}}",
+      "{{'pages.auth.with_google' | translate}}",
+      "{{'pages.auth.with_facebook' | translate}}",
+      {{'pages.auth.juridical.text_2' | translate}}
+
+      <a href="">
+        {{'pages.auth.juridical.text_3' | translate}}
+      </a>{{'pages.auth.juridical.text_4' | translate}} <a href="">
+        {{'pages.auth.juridical.text_5' | translate}}
+      </a>.
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div role="list" class="mt-2 divide-y divide-gray-200  border-t border-gray-200">
+
+  <ng-container *ngIf="requests !== null">
+
+    <ng-container *ngFor="let investorRequest of requests; let i=index">
+      <div class="flex items-center justify-between cursor-default">
+        <div class="flex items-center flex-row" [ngClass]="{'opacity-40': investorRequest.requestStatusId === 5}">
+
+
+          <ng-container *ngIf="investorRequest?.investor?.pictureUrl">
+            <button type="button"
+              class="cursor-default rounded-md bg-white text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none ">
+              <img class="h-8 w-8 rounded-full" style="margin: 10px; margin-left: 0px;"
+                src="{{investorRequest?.investor.pictureUrl | secure | async}}" alt="Tom Cook">
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="!investorRequest.investor?.pictureUrl">
+            <button type="button"
+              class="cursor-default rounded-md bg-white text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none ">
+              <img class="h-8 w-8 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500"
+                style="margin: 10px; margin-left: 0px;" src="./assets/svg/profile.svg" alt="Tom Cook">
+            </button>
+          </ng-container>
+
+
+
+
+          <div class="ml-4 text-sm font-normal text-gray-900">
+            {{investorRequest.investor?.firstName}} {{investorRequest.investor?.secondName}}
+          </div>
+          <div
+            *ngIf="(+investorRequest.investor?.firstName?.length === 0) && (+investorRequest.investor?.secondName?.length === 0)">
+            Пользователь не представился
+          </div>
+        </div>
+
+
+
+        <button type="button" *ngIf="+investorRequest.requestStatusId > 0" class="transition rounded-md cursor-default bg-white text-sm font-medium text-indigo-600 focus:outline-none
+          flex-row" style="width: max-content;
+          display: flex;
+          align-items: center;
+          vertical-align: middle;
+          justify-content: flex-end;
+          position: relative;">
+          <span class="mr-3 text-black" [ngClass]="{'opacity-40': investorRequest.requestStatusId === 5}">
+            {{investorRequest.shareValue | currency}}
+          </span>
+
+          <app-btn-with-hint [investorRequest]="investorRequest"
+            [hintText]="(investorRequest.requestStatusId | request_status).name"
+            [icon]="(investorRequest.requestStatusId | request_status).icon">
+          </app-btn-with-hint>
+        </button>
+
+
+      </div>
+    </ng-container>
+
+  </ng-container>
+
+
+  <!---->
+  <ng-container *ngIf="requests?.length === 0 || requests === null">
+    <div class="flex items-center justify-between cursor-default">
+      <div class="flex items-center flex-row">
+
+        <app-btn-action-item [isDisabled]="true" class="opacity-40">
+          {{'Список покупателей пустой' | translate}}
+        </app-btn-action-item>
+      </div>
+
+    </div>
+  </ng-container>
+
+
+
+  <ng-container>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center flex-row opacity-100">
+
+        <ng-container *ngIf="+proposalProfile?.proposalProfileStatusId < 3 && proposalProfile?.isReadyToDeal !== true">
+          <app-btn-action-item (click)="openRequestForInvestment()">
+            {{'Участвовать в покупке' | translate}}
+          </app-btn-action-item>
+        </ng-container>
+
+        <ng-container *ngIf="+proposalProfile?.proposalProfileStatusId < 3 && proposalProfile?.isReadyToDeal === true">
+          <app-btn-action-item [isDisabled]="true">
+            {{'Заявки собраны' | translate}}
+          </app-btn-action-item>
+        </ng-container>
+
+        <ng-container *ngIf="proposalProfile?.proposalProfileStatusId === 3">
+          <app-btn-action-item [isDisabled]="true">
+            {{'Выход на сделку' | translate}}
+          </app-btn-action-item>
+        </ng-container>
+      </div>
+
+
+    </div>
+  </ng-container>
+
+
+
+</div>
+
+
+<app-popover>
+  <app-create-pledge (eventEmitter)="addNewRequest($event)" [strapiProposal]="strapiProposal"></app-create-pledge>
+</app-popover>

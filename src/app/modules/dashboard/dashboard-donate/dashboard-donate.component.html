@@ -1,0 +1,86 @@
+<app-tw-page-layout title="{{'Поддержать разработчика' | translate}}"
+  description="{{'Скажи спасибо разработчику, который придумал и реализовал этот сервис.' | translate}}."
+  backBtnText="{{'Назад' | translate}}">
+
+
+
+
+  <div class="mt-16 flex justify-center" *ngIf="false">
+    <fieldset
+      class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200">
+      <legend class="sr-only">Payment frequency</legend>
+      <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
+      <label class="cursor-pointer rounded-full px-2.5 py-1">
+        <input type="radio" name="frequency" value="monthly" class="sr-only">
+        <span>Я из России</span>
+      </label>
+      <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
+      <label class="cursor-pointer rounded-full px-2.5 py-1">
+        <input type="radio" name="frequency" value="annually" class="sr-only">
+        <span>Я не в России</span>
+      </label>
+    </fieldset>
+  </div>
+
+
+  <div
+    class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
+    <div class="rounded-2xl p-8 ring-2 ring-indigo-600">
+      <h3 id="tier-startup" class="text-lg font-semibold leading-8 text-indigo-600">
+        {{'Boosty' | translate }}</h3>
+      <p class="mt-4 text-sm leading-6 text-gray-600">
+        {{'Оставь любую сумму в качестве доната' | translate}}
+      </p>
+      <p class="mt-6 gap-x-1 bg-indigo-100 flex items-center align-middle justify-center rounded-full w-12 h-12 ">
+        <img src="./assets/svg/logos/money.svg" class="w-7 h-7" alt="">
+      </p>
+      <a href="https://boosty.to/davidishe/purchase/2127394?ssource=DIRECT&share=subscription_link" target="_blank"
+        aria-describedby="tier-startup"
+        class="mt-6 block rounded-full py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-indigo-600 text-white shadow-sm hover:bg-indigo-500">
+        {{'Оставить донат' | translate}}
+      </a>
+      <ul role="list" class="mt-8 space-y-3 text-sm leading-6 text-gray-600">
+        <app-dashboard-donate-feature>
+          {{'Повлиять на развитие платформы' | translate}}
+        </app-dashboard-donate-feature>
+        <app-dashboard-donate-feature>
+          {{'Обсудить развитие проекта лично' | translate}}
+        </app-dashboard-donate-feature>
+
+      </ul>
+    </div>
+    <div class="rounded-2xl p-8 ring-1 ring-gray-200">
+      <h3 id="tier-enterprise" class="text-lg font-semibold leading-8 text-gray-900">
+        {{'Buy me a coffee' | translate}}
+      </h3>
+      <p class="mt-4 text-sm leading-6 text-gray-600">
+        {{'Купи разработчику кофе :)'}}
+      </p>
+      <p class="mt-6 flex items-baseline gap-x-1">
+        <!-- Price, update based on frequency toggle state -->
+        <img src="./assets/svg/logos/buy_me_coffee.svg" class="w-12 h-12 bg-indigo-100 rounded-full" alt="">
+      </p>
+
+
+
+      <a href="https://www.buymeacoffee.com/davidka" target="_blank" aria-describedby="tier-enterprise"
+        class="mt-6 block rounded-full py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300">
+        {{'Купить кофе'}}
+      </a>
+      <ul role="list" class="mt-8 space-y-3 text-sm leading-6 text-gray-600">
+
+        <app-dashboard-donate-feature>
+          {{'Обсудить развитие платформы' | translate}}
+        </app-dashboard-donate-feature>
+        <app-dashboard-donate-feature>
+          {{'Поговорить по телефону :)' | translate}}
+        </app-dashboard-donate-feature>
+
+      </ul>
+    </div>
+  </div>
+
+
+
+
+</app-tw-page-layout>

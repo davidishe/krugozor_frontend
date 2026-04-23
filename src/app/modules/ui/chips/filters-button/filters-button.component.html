@@ -1,0 +1,13 @@
+    <span class="inline-flex items-center border-none pl-3 pr-3 
+            transition relative rounded-full px-3 py-1.5 font-medium text-gray-900 text-xs bg-gray-900"
+      style="cursor: pointer;">
+      <span class="text-white">
+        <ng-content></ng-content>
+      </span>
+
+
+      <div class=" h-5 ml-1">
+        <img class="w-5" *ngIf="icon" src="./assets/svg/{{icon}}.svg" alt="">
+      </div>
+
+    </span>

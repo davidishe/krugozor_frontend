@@ -1,0 +1,33 @@
+            <div>
+              <h3>
+                <!-- Expand/collapse question button -->
+                <button type="button"
+                  class="group relative flex w-full items-center justify-between py-6 text-left opacity-90 hover:opacity-100"
+                  aria-controls="disclosure-1" aria-expanded="false" (click)="toggleOpenStatus()" [ngClass]="{'opacity-50':
+                  isDisabled}">
+                  <!-- Open: "text-indigo-600", Closed: "text-gray-900" -->
+                  <span class="text-gray-900 text-sm font-medium">
+                    {{title}}
+                  </span>
+                  <span class="ml-6 flex items-center">
+
+
+                    <ng-container *ngIf="!isOpened">
+                      <img class="h-6 w-6 opacity-50" src="./assets/svg/plus_rounded.svg" alt="">
+                    </ng-container>
+
+                    <ng-container *ngIf="isOpened">
+                      <img class="h-6 w-6 opacity-50" src="./assets/svg/minus_circle.svg" alt="">
+                    </ng-container>
+
+
+                  </span>
+                </button>
+              </h3>
+              <div class=" pb-6 flex flex-wrap" id="disclosure-1" *ngIf="isOpened"
+                [ngStyle]="{'display: contents': true}">
+                <ng-content></ng-content>
+              </div>
+            </div>
+
+            <!-- More sections... -->

@@ -1,0 +1,25 @@
+<div *ngIf="item" class="relative">
+  <div style="position: relative;">
+    <p class="text-xs leading-6 text-white  w-6 h-6 rounded-full flex items-center justify-center text-center absolute bg-indigo-800 cursor-default"
+      style="left: 32%; bottom: 0px;">
+      {{item.rating}}
+    </p>
+    <img class="mx-auto h-56 w-56 rounded-full cursor-pointer" src="{{item?.imageProfile}}" alt="">
+  </div>
+  <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-gray-900 w-full text-center">
+    {{item.name}}
+  </h3>
+  <div class="w-full justify-center items-center flex">
+    <div class="text-sm leading-6 text-gray-600  w-60 text-center pointer-events-none">
+      <ng-container *ngIf="item.description.length <= 111">
+        {{ item.description }}
+      </ng-container>
+
+      <ng-container *ngIf="item.description.length > 111">
+        {{ item.description | slice:0:111  }} ...
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- More people... -->

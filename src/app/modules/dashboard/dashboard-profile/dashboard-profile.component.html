@@ -1,0 +1,121 @@
+<!-- <app-header *ngIf="form">
+  <ion-button class="btn-mobile" [disabled]="form.pristine || form.invalid || isPending" (click)="updateUserProfile()">
+    {{'globals.labels.save' | translate}}
+  </ion-button>
+</app-header> -->
+
+<ion-content class="page-content" [fullscreen]="true">
+  <div class="page-inner">
+    <div class="container">
+
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <app-page-title [withMarginBottom]="true">
+          {{ 'pages.profile.title' | translate }}
+        </app-page-title>
+
+        <div style="display: flex;" *ngIf="form">
+          <app-mat-btn-small class="btn-web" [text]="('globals.labels.save' | translate)" bgcolor="#007aff" font="white"
+            isFlexWidth=true [disabled]="form.pristine || form.invalid || isPending || disabled"
+            (click)="updateUserProfile()" [isPending]="isPending">
+          </app-mat-btn-small>
+
+          <btn-only-icon class="btn-web" svg="assets/svg/logout.svg" font="white" isFlexWidth=true [disabled]="false"
+            (click)="logout()" [isPending]="isPending" style="margin-left: 16px;">
+          </btn-only-icon>
+        </div>
+      </div>
+
+
+
+      <ng-container *ngIf="(authService.currentUser$ | async)">
+
+        <form [formGroup]="form" *ngIf="form">
+          <br>
+
+          <app-input-ionic label="{{'globals.labels.name' | translate}}" control_name="firstName" [form]="form"
+            [disabled]="false" [hasError]="form.get('firstName').invalid && form.get('firstName').touched">
+          </app-input-ionic>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['minlength']">
+            {{'pages.profile.min_value_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['maxlength']">
+            {{'pages.profile.max_value_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['digits_restricted']">
+            {{'pages.profile.digits_restricted_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').touched && form.get('firstName').errors['required']">
+            {{'globals.labels.required_validator' | translate }}
+
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('firstName').invalid && form.get('firstName').errors['spec_chars']">
+            {{'globals.labels.not_spec_chars_validator' | translate }}
+          </div>
+
+          <br>
+
+
+          <app-input-ionic label="{{'globals.labels.secondName' | translate}}" control_name="secondName" [form]="form"
+            [disabled]="false" [hasError]="form.get('secondName').invalid">
+          </app-input-ionic>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['required']">
+            {{'globals.labels.required_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['minlength']">
+            {{'pages.profile.min_value_validator' | translate}}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['maxlength']">
+            {{'pages.profile.max_value_validator' | translate }}
+          </div>
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['digits_restricted']">
+            {{'pages.profile.digits_restricted_validator' | translate }}
+          </div>
+
+
+          <div class="validator" position="stacked"
+            *ngIf="form.get('secondName').invalid && form.get('secondName').errors['spec_chars']">
+            {{'globals.labels.not_spec_chars_validator' | translate }}
+          </div>
+
+
+          <br>
+          <app-input-ionic label="{{ 'globals.labels.email' | translate }}" control_name="email" [form]="form"
+            disabled="true"></app-input-ionic>
+
+          <br>
+          <br>
+          <br>
+        </form>
+
+      </ng-container>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+</ion-content>

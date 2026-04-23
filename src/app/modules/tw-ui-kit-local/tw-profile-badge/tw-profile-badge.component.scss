@@ -1,0 +1,8 @@
+.activated {
+  transition: all ease-in-out 0.15s;
+  filter: none;
+}
+
+.activated:hover {
+  filter: sepia(0.5);
+}

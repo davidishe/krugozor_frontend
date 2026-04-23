@@ -1,0 +1,31 @@
+query GetProposalsWithFilters {
+  proposals(
+    filters: {name: {containsi: ""}, 
+      and: [
+        {category_6: {category_5: {category_4: {category_3: {category_2: {category_1: {id: {eq: 3}}}}}}}}, 
+       	{cities: {id: {in: [3, 2]}}},
+        {price: {gte: 0}},
+        {price: {lte: 1000000}}
+        
+      ]}
+  ) {
+    data {
+      id
+      attributes {
+        name
+        description
+        cities {data {attributes {name}}}
+        createdAt
+        price
+        category_6 {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}

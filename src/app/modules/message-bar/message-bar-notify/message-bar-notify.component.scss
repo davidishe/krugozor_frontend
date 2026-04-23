@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+}
+img {
+  opacity: 1;
+}
+
+img:hover {
+  opacity: 1;
+  transition: all ease-in-out 0.2s;
+  cursor: pointer;
+}
+
+.img-icon {
+  -webkit-box-shadow: 1px 0px 9px 0px rgba(34, 60, 80, 0.31);
+  -moz-box-shadow: 1px 0px 9px 0px rgba(34, 60, 80, 0.31);
+  box-shadow: 1px 0px 9px 0px rgba(34, 60, 80, 0.31);
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 200px;
+  overflow: hidden;
+}

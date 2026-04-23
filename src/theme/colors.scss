@@ -1,0 +1,21 @@
+:root {
+  /** primary **/
+  --ion-color-primary: #000000;
+  --ion-color-primary-light: #e4e4e4a6;
+  --ion-color-primary-rgb: 0, 122, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #242424;
+  --background-focused: #242424;
+
+  --color-secondary: rgba(213, 209, 250, 0.499);
+  --color-secondary-hover: rgb(219, 216, 252);
+  --color-secondary-main: rgb(219, 216, 252);
+
+  --main-color: #212121;
+  --main-color-burn: #0f0f1c;
+  --hover: #191922;
+  --disabled: #e4e4e4a6;
+  --background: #f4f3f3e9;
+  --background-white: #ffffff;
+}

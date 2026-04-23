@@ -1,0 +1,58 @@
+.authorize-page-wrapper {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  display: flex;
+}
+
+.login-page-wrapper {
+  position: relative;
+  width: 280px;
+}
+
+.animation {
+  animation-name: bounce;
+  animation-duration: 1s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scaleX(100%) scaleY(100%);
+    translate: 0% -60%;
+  }
+  10% {
+    transform: scaleX(110%) scaleY(110%);
+  }
+
+  20% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+
+  30% {
+    transform: scaleX(130%) scaleY(130%);
+  }
+
+  40% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+  50% {
+    transform: scaleX(110%) scaleY(110%);
+  }
+  60% {
+    transform: scaleX(100%) scaleY(100%);
+  }
+  70% {
+    transform: scaleX(110%) scaleY(110%);
+  }
+  80% {
+    transform: scaleX(120%) scaleY(120%);
+  }
+  90% {
+    transform: scaleX(110%) scaleY(110%);
+  }
+  100% {
+    transform: scaleX(100%) scaleY(100%);
+  }
+}

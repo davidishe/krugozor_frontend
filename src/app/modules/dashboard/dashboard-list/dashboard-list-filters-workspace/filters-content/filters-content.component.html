@@ -1,0 +1,86 @@
+<div class="border-t border-gray-200 py-10" id="disclosure-1">
+
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-4 px-4 text-sm sm:px-6 md:gap-x-6 md:grid-cols-2 lg:grid-cols-4
+    sm:grid-cols-1 lg:px-8" style="min-height: 200px;">
+    <fieldset class="mb-4">
+      <legend class="block font-medium">{{'Знание языка' | translate}}</legend>
+      <div class="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
+
+        <ng-container *ngFor="let lang of queryParamsForLangCode; let i=index">
+          <app-tw-checkbox (checkboxChanged)="checkboxChanged($event)" [id]="lang.id + '_lang'" [selector]="2"
+            [isChecked]="getStatus(lang.id, (queryParamForLangCode$ | async))">
+            {{lang.name }}
+          </app-tw-checkbox>
+        </ng-container>
+
+
+
+      </div>
+    </fieldset>
+
+    <fieldset class="mb-4" *ngIf="(citys$ | async)?.data?.length !== null">
+      <legend class="block font-medium">{{'Города' | translate}}</legend>
+      <div class="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
+
+        <ng-container *ngFor="let item of (this.citys$ | async).data; let i=index">
+          <app-tw-checkbox (checkboxChanged)="checkboxChanged($event)" *ngIf="item.id === 3" [id]="item.id"
+            [selector]="1" [isChecked]="getStatus(item.id, (selectedCitys$ | async))">
+            {{item.attributes.name }}
+            <app-tw-tooltip text="Пользователь может оказать услугу или продать товар в любом городе.">
+              <img
+                class=" ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500 opacity-50 hover:opacity-80"
+                style="cursor: pointer; transition: all ease-in-out 0.18s;" src="./assets/svg/tw_question.svg"
+                alt="What is it?">
+            </app-tw-tooltip>
+          </app-tw-checkbox>
+        </ng-container>
+
+
+
+        <ng-container *ngFor="let item of (this.citys$ | async).data; let i=index">
+          <app-tw-checkbox (checkboxChanged)="checkboxChanged($event)" *ngIf="item.id !== 3" [id]="item.id"
+            [selector]="1" [isChecked]="getStatus(item.id, (selectedCitys$ | async))">
+            {{item.attributes.name }}
+          </app-tw-checkbox>
+        </ng-container>
+      </div>
+
+    </fieldset>
+
+
+    <fieldset class="mb-4">
+      <legend class="block font-medium">{{'Рейтинг исполнителя' | translate}}</legend>
+      <div class="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
+        <ng-container *ngFor="let rating of queryParamsForRatingTypes; let i=index">
+          <app-tw-checkbox (checkboxChanged)="checkboxChanged($event)" [selector]="3"
+            [isChecked]="getStatus(rating.id, (queryParamsForRatingTypes$ | async))" [id]="rating.id + '_rating_type'">
+            {{rating.name}}</app-tw-checkbox>
+        </ng-container>
+
+
+      </div>
+    </fieldset>
+
+    <fieldset class="mb-4">
+      <legend class="font-medium flex w-full">
+        <span class="mr-1" style="display: flex;">
+          {{'Надежность профиля' | translate}}
+          <app-tw-tooltip text="Анкета пользователя была проверена модераторами платформы.">
+            <img class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500 opacity-50 hover:opacity-80"
+              style="cursor: pointer; transition: all ease-in-out 0.18s;" src="./assets/svg/tw_question.svg"
+              alt="What is it?">
+          </app-tw-tooltip>
+        </span>
+
+      </legend>
+      <div class="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
+        <ng-container *ngFor="let type of queryParamsForVerifiicationTypes; let i=index">
+          <app-tw-checkbox (checkboxChanged)="checkboxChanged($event)" [selector]="4"
+            [isChecked]="getStatus(type.id, (queryParamsForVerifiicationTypes$ | async))"
+            [id]="type.id + '_verify_type'" id="color-fs0">{{type.name}}</app-tw-checkbox>
+        </ng-container>
+      </div>
+    </fieldset>
+
+  </div>
+</div>

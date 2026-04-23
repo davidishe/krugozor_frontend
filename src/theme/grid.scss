@@ -1,0 +1,52 @@
+:root {
+  --ion-font-family: "Source Sans Pro", sans-serif;
+  --font-family: "Source Sans Pro", sans-serif;
+  --font: "Source Sans Pro", sans-serif;
+  --font-size: 18px;
+
+  --button-radius: 100px;
+  --input-radius: 8px;
+  --input-border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  --shadow: rgb(0 0 0 / 7%) 0px 8px 32px;
+  --shadow-hover: rgb(0 0 0 / 12%) 0px 8px 32px;
+}
+
+.page-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 1460px;
+  }
+}
+
+.page-content {
+  --padding-top: 50px;
+  --padding-bottom: 30px;
+  --padding-start: 60px;
+  --padding-end: 60px;
+  padding: 50px 60px;
+
+  @media (max-width: 1100px) {
+    --padding-top: 50px;
+    --padding-bottom: 50px;
+    --padding-start: 30px;
+    --padding-end: 30px;
+    padding: 50px 30px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 50px 60px;
+  }
+
+  @media (max-width: 730px) {
+    padding: 20px 20px;
+  }
+}

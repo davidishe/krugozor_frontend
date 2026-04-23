@@ -1,0 +1,22 @@
+<div class="entity-wrapper">
+
+  <div class="entity-header" (click)="toggle()">
+
+    <div class="entity-header-text">
+      {{text_title}}
+    </div>
+
+    <div class="entity-header-toggle">
+      <ion-icon src="assets/svg/toggle_collapse.svg" *ngIf="expanded"></ion-icon>
+      <ion-icon src="assets/svg/toggle_expand.svg" *ngIf="!expanded"></ion-icon>
+    </div>
+
+  </div>
+  <div class="entity-body" *ngIf="expanded">
+    <ng-content></ng-content>
+
+
+  </div>
+
+
+</div>

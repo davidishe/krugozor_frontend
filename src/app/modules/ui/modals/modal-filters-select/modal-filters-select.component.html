@@ -1,0 +1,221 @@
+<div *ngIf="((popoverState$ | async)?.popoverType === 'filters') && (popoverState$ | async)?.status === true"
+  style="max-height: 200px !important; overflow-y: hidden;" class="z-10 ">
+  <div class="fixed inset-0 pb-5" style="max-height: 100%; ">
+    <div class="flex pt-10 justify-center align-top p-4 text-center mt-14 sm:p-0" style="height: 90%;">
+
+      <div class="w-full relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8"
+        style="padding-bottom: 0px; max-width: 40rem; overflow: hidden;">
+
+        <div class="flex pb-3 pl-3 justify-center pt-5 border-b relative">
+          <app-close style="position: absolute; left: 25px;"></app-close>
+          <app-tw-title>{{'Фильтры' | translate}}</app-tw-title>
+        </div>
+
+        <div style="position: relative; padding-bottom: 5px;">
+          <div style="max-height: 42rem; overflow-y: scroll;" class="pt-8">
+
+
+            <!-- prices finish -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Ценовой диапазон' | translate}}
+                  </div>
+                  <span
+                    class="pb-2 pr-3 min-w-0 flex-1 text-gray-600 flex text-base sm:text-sm items-center transition">
+                    {{'Выберите минимальную и/или максимальную цену объекта. Или оставьте поля пустыми.' | translate }}
+                  </span>
+                  <div class="space-y-2 grid grid-cols-1">
+                    <app-range-inputs-form></app-range-inputs-form>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- prices finish -->
+
+            <!-- place area start -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Площадь' | translate}}
+                  </div>
+                  <span
+                    class="pb-2 pr-3 min-w-0 flex-1 text-gray-600 flex text-base sm:text-sm items-center transition">
+                    {{'Выберите минимальную и/или максимальную площадь объекта. Или оставьте поля пустыми.' | translate }}
+                  </span>
+                  <div class="space-y-2 grid grid-cols-1">
+                    <app-range-place-area></app-range-place-area>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- place area finish -->
+
+
+            <!-- страны начало -->
+            <form class="p-5 pb-0">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <fieldset>
+                    <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                      {{'Локации' | translate}}
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <ng-container *ngFor="let country of (countrys$ | async); let i=index">
+                        <app-tw-checkbox class="mt-2 mb-2" *ngIf="(queryParams$ | async) as queryParams"
+                          (checkboxChanged)="setCountrys($event, country, queryParams)" [id]="country.id + '_country'"
+                          [selector]="2" [isChecked]="getStatus(country, (queryParams$ | async).selectedCountries)"
+                          [disabled]="isDisabled(country.id)">
+                          {{country.attributes.name }}
+                        </app-tw-checkbox>
+                        <!-- [isChecked]="getStatus(lang.id, (queryParamForLangCode$ | async))" -->
+                      </ng-container>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
+            <!-- страны завершение -->
+
+
+            <!-- citites finish -->
+            <form class="p-5 pb-2 pt-2" *ngIf="(queryParams$ | async).selectedCountries.length > 0">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="grid grid-cols-1">
+                    <app-tw-autocomplete-select [items]="citiesForDropDown">
+                    </app-tw-autocomplete-select>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="flex p-5 pt-3">
+              <ng-container *ngFor="let city of (queryParams$ | async)?.selectedCities; let i=index">
+                <app-filters-button-chip class="mr-3 mb-3" icon="tw_close" (click)="removeSpecificCity(city)">
+                  {{ city.attributes.name }}
+                </app-filters-button-chip>
+              </ng-container>
+            </div>
+            <!-- citites end -->
+
+
+
+            <!-- potential using -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Потенциальное назначение' | translate}}
+                  </div>
+                  <span
+                    class="pb-2 pr-3 min-w-0 flex-1 text-gray-600 flex text-base sm:text-sm items-center transition">
+                    {{'Выберите один или несколько вариантов использования объекта недвижимости.' | translate }}
+                  </span>
+                  <div class="space-y-2 grid grid-cols-1">
+                    <app-potential-using [items]="(proposalTypes$ | async)" [queryParams]="(queryParams$ | async)">
+                    </app-potential-using>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- end potential using -->
+
+
+            <!-- признак действующего бизнеса -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="space-y-6 bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Действующий бизнес' | translate}}
+                  </div>
+                  <div class="space-y-4 grid grid-cols-1">
+                    <app-tw-toggle [enabledText]="'Только с действующим арендатором'"
+                      [disabledText]="'Показывать все предложения'"
+                      (getToggleStatus)="setIsRealBussinessEnabled($event)"
+                      [isEnabled]="proposalService.getQueryParams().isRealBussinessEnabled">
+                    </app-tw-toggle>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+
+            <!-- place area start -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Когда построили' | translate}}
+                  </div>
+                  <span
+                    class="pb-2 pr-3 min-w-0 flex-1 text-gray-600 flex text-base sm:text-sm items-center transition">
+                    {{'Задайте актуальный для вас год постройки. Или оставьте поля пустыми.' | translate }}
+                  </span>
+                  <div class="space-y-2 grid grid-cols-1">
+                    <app-range-building-date></app-range-building-date>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- place area finish -->
+
+
+
+
+            <!-- potential using -->
+            <form class="p-5">
+              <div class="sm:rounded-md">
+                <div class="bg-white">
+                  <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+                    {{'Дополнительные характеристики' | translate}}
+                  </div>
+                  <span
+                    class="pb-2 pr-3 min-w-0 flex-1 text-gray-600 flex text-base sm:text-sm items-center transition">
+                    {{'Отфильтруйте объекты предложения по дополнительным характеристикам.' | translate }}
+                  </span>
+                  <div class="space-y-2 grid grid-cols-1">
+                    <app-filters-amenities [items]="(amenities$ | async)" [queryParams]="(queryParams$ | async)">
+                    </app-filters-amenities>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- end potential using -->
+
+
+
+
+
+
+
+
+            <br>
+            <br>
+            <br>
+
+            <!-- end -->
+          </div>
+        </div>
+
+        <div class="absolute w-full justify-end inline-flex px-5 pt-5 border-t bg-white pb-4"
+          style="bottom: 0px; left: 0px;">
+
+          <!-- <app-tw-button-second iconPath="tw_close" (click)="close()">
+            {{'Закрыть' | translate}}
+          </app-tw-button-second> -->
+          <app-tw-button-third iconPath="tw_check" class="ml-3" (click)="submitSearch()">
+            {{'Посмотреть результаты' | translate}}
+          </app-tw-button-third>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+</div>

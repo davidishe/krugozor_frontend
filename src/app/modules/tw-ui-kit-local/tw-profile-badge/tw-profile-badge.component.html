@@ -1,0 +1,23 @@
+          <div *ngIf="(currentUser$ | async)">
+            <button type="button" class="flex h-8 w-8 rounded-full overflow-hidden bg-gray-800 text-sm outline-none focus:outline-none focus:ring-white focus:ring-2 focus:ring-offset-2 ring-indigo-700 ring-2 ring-offset-2 
+              " id="user-menu-button" aria-expanded="false" aria-haspopup="true"
+              [ngClass]="{'ring-white activated ring-2 ring-offset-2': (this.popoverStatus$ | async)?.popoverType === 'menu'}"
+              (click)="toggleProfileMenuStatus()">
+              <span class="sr-only">Open user menu</span>
+
+              <ng-container *ngIf="(currentUser$ | async)?.pictureUrl !== null">
+                <img class="block  rounded-full" src="{{(currentUser$ | async)?.pictureUrl | secure | async}}" alt="">
+              </ng-container>
+
+              <ng-container *ngIf="!((currentUser$ | async)?.pictureUrl)">
+                <img class="h-8 w-8 bg-indigo-600 rounded-full" src="./assets/svg/profile.svg" alt="">
+              </ng-container>
+
+            </button>
+
+
+            <ng-content></ng-content>
+
+
+
+          </div>

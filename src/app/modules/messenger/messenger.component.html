@@ -1,0 +1,239 @@
+  <!-- https://tailwindcomponents.com/component/tailwindcss-messenger-clone -->
+
+
+
+  <app-navbar class="z-30" style="z-index: 10;"></app-navbar>
+  <div class="bg-white mx-auto max-w-full py-8 px-4 pt-20 sm:px-6 lg:px-16 min-h-screen h-full">
+    <div class="mt-8 h-full">
+      <div class="inline-block min-w-full py-2 align-middle h-full">
+
+        <ng-container *ngIf="((chatsData$ | async)?.length > 0) && !(this.recepientId > 0); else notEmptyTemplate">
+
+        </ng-container>
+
+        <ng-template #notEmptyTemplate>
+          <!-- <app-messenger-empty-messeges></app-messenger-empty-messeges> -->
+        </ng-template>
+
+
+        <ng-container>
+          <div class="w-full flex antialiased text-gray-200 bg-gray-50 overflow-hidden h-full">
+            <div class="flex-1 flex flex-col">
+
+
+              <main class="flex-grow flex flex-row min-h-0">
+
+
+                <section class=" flex-col flex-none overflow-auto w-24 group lg:max-w-sm md:w-2/5 transition-all
+                duration-300 ease-in-out flex">
+                  <div class="h-16 header p-4 flex flex-row justify-between items-center flex-none">
+                  </div>
+
+
+
+
+                  <div class="contacts p-2 flex-1 overflow-y-scroll">
+
+                    <!-- <div class="text-black">
+                      {{(chatsData$ | async) | json}}
+                    </div> -->
+
+
+
+                    <ng-container *ngIf="+(chatsData$ | async)?.length > 0">
+                      <ng-container *ngFor="let chat of ((chatsData$ | async) | sortByOrder); let i=index">
+
+                        <ng-container *ngIf="currentUserId !== +chat?.destinationUser?.id; else elseTemplate">
+                          <app-user-card-header class="mb-2" [userToShow]="chat?.destinationUser"
+                            [isOnlineStatusHidden]="true"
+                            (click)="goToUserSection(chat?.destinationUser?.id); readChatAsync(chat?.id);"
+                            [isSidebarMenu]="true" [isSelected]="(+recepientId === +chat?.destinationUser?.id)"
+                            [chat]="chat" [userId]="+chat.authorUser?.id"
+                            [lastMessage]="(chat | last:true:chat?.destinationUser?.id)">
+                          </app-user-card-header>
+
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          <app-user-card-header class="mb-2" [userToShow]="chat?.authorUser"
+                            [isOnlineStatusHidden]="true"
+                            (click)="goToUserSection(chat?.authorUser?.id); readChatAsync(chat?.id);"
+                            [isSidebarMenu]="true" [isSelected]="(+recepientId === +chat?.authorUser?.id)" [chat]="chat"
+                            [userId]="+chat.destinationUser?.id" [lastMessage]="chat | last:false:chat?.authorUser?.id">
+                          </app-user-card-header>
+                        </ng-template>
+
+                      </ng-container>
+                    </ng-container>
+
+
+                  </div>
+                </section>
+
+
+                <!-- messeges section if recepient is not null -->
+                <ng-container *ngIf="recepientId > 0; else rootSectionTemplate">
+                  <section class="flex flex-col flex-auto border-l border-gray-100 relative" *ngIf="recepientId > 0">
+                    <div class="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
+                      <div class="flex">
+                        <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
+
+                          <ng-container *ngIf="(+destinationUser?.pictureUrl.length > 0); else elsePicture">
+                            <img class="shadow-md rounded-full md:w-full md:h-full object-cover"
+                              src="{{destinationUser?.pictureUrl}}" alt="" />
+                          </ng-container>
+                          <ng-template #elsePicture>
+                            <div class="w-full h-full flex items-center justify-center align-middle">
+                              <svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                              </svg>
+                            </div>
+                          </ng-template>
+
+
+                        </div>
+                        <div class="text-sm text-gray-900 flex items-start justify-center align-middle flex-col"
+                          *ngIf="destinationUser">
+                          <p class="font-bold">
+                            {{destinationUser?.firstName}}
+                            {{destinationUser?.secondName}}
+                          </p>
+                          <p>
+                            {{destinationUser.wasOnline | timeago}}
+                          </p>
+                        </div>
+                      </div>
+
+                      <app-messenger-chat-header-actions *ngIf="false"></app-messenger-chat-header-actions>
+
+                    </div>
+
+                    <div class="chat-body p-4 flex-1 overflow-y-scroll overflow-hidden" #scrollMe id="scrollMe"
+                      [scrollTop]="scrollMe.scrollHeight">
+
+
+                      <ng-container *ngFor="let message of (chatsData$ | async)[0]?.messages; let i=index">
+
+                        <ng-container *ngIf="((currentUser$ | async)?.id === +message.authorId)">
+                          <app-message [userToShow]="(currentUser$ | async)" [elementId]="'message_' + i"
+                            [message]="message" [isMyMessage]="true">
+                            {{message.text}}
+                          </app-message>
+                        </ng-container>
+
+                        <ng-container *ngIf="((currentUser$ | async)?.id !== +message.authorId)">
+                          <app-message [isMyMessage]="false" [userToShow]="destinationUser" [elementId]="'message_' + i"
+                            [message]="message">
+                          </app-message>
+                        </ng-container>
+
+                      </ng-container>
+
+
+
+
+
+                    </div>
+
+
+
+                    <div class="chat-footer flex-none">
+                      <div class="flex flex-row items-center p-4 ">
+
+                        <!-- attach -->
+                        <ng-container *ngIf="+filesForSend?.length === 0">
+                          <button type="button" class="flex flex-shrink-0 focus:outline-none mx-2 ml-0 text-indigo-700 w-10 h-10
+                rounded-full p-1 align-middle justify-center items-center hover:text-black cursor-pointer"
+                            (click)="file.click()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+                            </svg>
+
+                          </button>
+                        </ng-container>
+                        <ng-container *ngIf="+filesForSend?.length > 0">
+                          <button type="button"
+                            class="flex flex-shrink-0 focus:outline-none mx-2 ml-0 text-indigo-700 w-10 h-10
+                p-1 align-middle justify-center items-center hover:text-black cursor-pointer bg-gray-100 hover:bg-slate-300 rounded-full transition"
+                            (click)="file.click()">
+                            <span class="text-gray-800 font-bold">
+                              {{+filesForSend?.length}}
+                            </span>
+
+                          </button>
+
+                        </ng-container>
+
+
+
+                        <input class="hidden" type="file" #file placeholder="Выбери файл"
+                          (change)="uploadFile(file.files)" style="display:none;" [multiple]="true">
+                        <!-- attach end -->
+
+
+                        <div class="relative flex-grow" [formGroup]="form">
+                          <label>
+                            <input formControlName="messageText" [formControl]="form.get('messageText')"
+                              type="{{'text'}}" name="messageText" id="messageText" class="rounded-full py-2 pl-3 pr-10 w-full border border-gray-100 focus:border-gray-700 bg-gray-100
+                    focus:bg-gray-200 focus:outline-none text-gray-800 focus:shadow-md transition duration-300 ease-in"
+                              autocomplete="off" placeholder="{{'Aa'}}" value='value' #input
+                              (keyup.enter)="sendMessage()" (input)="sendPrintingStatus()">
+                          </label>
+                        </div>
+
+                        <button type="button"
+                          class="flex-shrink-0 focus:outline-none mx-2 flex h-6 text-gray-50
+                p-5 items-center justify-center align-middle text-sm w-fit bg-indigo-700 hover:bg-indigo-800 transition rounded-full disabled:pointer-events-none disabled:bg-gray-600"
+                          [ngClass]="{'bg-gray-600 pointer-events-none': isPending}" (click)="sendMessage()"
+                          [disabled]="(form.get('messageText').value === null)"
+                          [disabled]="(+filesForSend?.length === 0)">
+
+                          <ng-container *ngIf="isPending; else pendingTemplate">
+                            <img src="./assets/svg/spinner_white.svg" class="w-4 h-4 mr-3" alt="">
+                          </ng-container>
+                          <ng-template #pendingTemplate>
+                            <img src="./assets/svg/tw_message_white.svg" class="w-4 h-4 mr-3" alt="">
+                          </ng-template>
+
+
+
+                          {{'Отправить' | translate}}
+                          <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
+
+                            <path
+                              d="M11.0010436,0 C9.89589787,0 9.00000024,0.886706352 9.0000002,1.99810135 L9,8 L1.9973917,8 C0.894262725,8 0,8.88772964 0,10 L0,12 L2.29663334,18.1243554 C2.68509206,19.1602453 3.90195042,20 5.00853025,20 L12.9914698,20 C14.1007504,20 15,19.1125667 15,18.000385 L15,10 L12,3 L12,0 L11.0010436,0 L11.0010436,0 Z M17,10 L20,10 L20,20 L17,20 L17,10 L17,10 Z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+
+                  </section>
+                </ng-container>
+                <ng-template #rootSectionTemplate>
+                  <div class="text-gray-800 flex justify-center items-center text-center align-middle w-full">
+                    {{'Выберите переписку' | translate}}
+                  </div>
+                </ng-template>
+
+
+
+
+              </main>
+
+
+
+
+            </div>
+          </div>
+
+        </ng-container>
+
+
+
+
+      </div>
+    </div>
+  </div>

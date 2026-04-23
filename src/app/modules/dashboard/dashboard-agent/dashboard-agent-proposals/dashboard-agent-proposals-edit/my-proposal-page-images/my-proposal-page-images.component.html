@@ -1,0 +1,56 @@
+<div class="bg-white px-4 py-5 sm:p-6 shadow sm:rounded-md mt-10">
+  <!-- start -->
+
+  <div class="bg-white pb-0" style="padding-bottom: 0px;">
+    <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+      {{'Картинки' | translate}}
+    </div>
+    <span class="block text-sm font-medium text-gray-700 mb-3">
+      {{'Добавь побольше красивых картинок' | translate}}
+    </span>
+  </div>
+
+
+
+  <div style="position: relative; padding-bottom: 5px;">
+    <div class="mt-6 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 xl:gap-x-10 scroll-smooth"
+      style="position: relative;">
+
+      <ng-container *ngFor="let image of images">
+        <article
+          class="relative flex flex-col items-start justify-between cursor-pointer card opacity-90 hover:opacity-100 transition-transform ">
+          <div class="relative w-full">
+            <img src="{{imageUri + image.attributes.formats.small.url}}"
+              class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]          hover:border-black">
+            <div class="absolute inset-0 rounded-2xl"></div>
+          </div>
+          <button type="button"
+            class="opacity-0 absolute inset-0 focus:outline-none hover:visible hover:opacity-100 transition">
+            <img class="h-7 w-7" src="./assets/svg/tw_close_circle_black.svg"
+              style="right: -13px; top: -12px; position: absolute;" alt="" (click)="deleteImage(image)">
+          </button>
+        </article>
+      </ng-container>
+
+
+      <ng-container *ngIf="progress === false">
+        <app-agent-proposals-edit-image (click)="file.click()" imagePath="./assets/svg/plus.svg">
+          <input class="hidden" type="file" #file placeholder="Выбери файл" (change)="uploadFile(file.files)"
+            style="display:none;">
+        </app-agent-proposals-edit-image>
+      </ng-container>
+
+      <ng-container *ngIf="progress">
+        <app-agent-proposals-edit-image (click)="file.click()" imagePath="./assets/svg/spinner.svg">
+        </app-agent-proposals-edit-image>
+      </ng-container>
+
+
+
+    </div>
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<form>
+  <div class="sm:rounded-md">
+    <div class="grid grid-cols-6 gap-6">
+      <app-form-text-input [isWithIcon]="true" label="Минимальная площадь" [form]="form"
+        [control_name]="form.get('minPlaceArea')" class="col-span-6 sm:col-span-3" form_ControlName="minPlaceArea"
+        [type]="'number'" (notify)="setMinimalValue()">
+      </app-form-text-input>
+
+      <app-form-text-input [isWithIcon]="true" label="Максимальная площадь" [form]="form"
+        [control_name]="form.get('maxPlaceArea')" class="col-span-6 sm:col-span-3" form_ControlName="maxPlaceArea"
+        [type]="'number'" (notify)="setMaximalValue()">
+      </app-form-text-input>
+
+
+    </div>
+  </div>
+</form>

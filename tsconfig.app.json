@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "skipLibCheck": true,
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "gapi",
+      "gapi.auth2",
+      "google.maps",
+    ]
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

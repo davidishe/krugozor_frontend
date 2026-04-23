@@ -1,0 +1,22 @@
+  <article class="relative flex flex-col items-start justify-between rounded-2xl transition bg-gray-300 cursor-pointer card
+    opacity-80 hover:opacity-100">
+    <div class="relative w-full">
+      <div class="-z-10 absolute inset-0 rounded-2xl "></div>
+      <div class="aspect-[16/9] w-full rounded-2xl   object-cover sm:aspect-[2/1] lg:aspect-[3/2]
+        flex items-center justify-center align-middle">
+        <!-- 
+        <ng-container *ngIf="!progress">
+          <img class="" src="./assets/svg/plus.svg">
+        </ng-container>
+
+        <ng-container *ngIf="progress">
+          <img class="" src="./assets/svg/spinner.svg">
+        </ng-container>
+      -->
+        <img class="" src="{{imagePath}}">
+      </div>
+
+
+    </div>
+    <ng-content></ng-content>
+  </article>

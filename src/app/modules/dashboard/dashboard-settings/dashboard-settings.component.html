@@ -1,0 +1,91 @@
+<app-tw-page-layout title="{{'Мой профиль'  | translate}}"
+  description="{{'Настрой свой профиль, чтобы другие пользователи могли увидеть информацию о тебе.' | translate}}"
+  backBtnText="{{'Назад' | translate}}">
+
+
+
+
+  <div>
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+
+      <app-form-section title="{{'Персональная информация' | translate}}">
+        {{'Добавь информацию о себе и фото, чтобы пользователи могли ознакомиться с информацией' | translate}}.
+      </app-form-section>
+
+
+      <div class="mt-5 md:col-span-2 md:mt-0">
+        <app-form-profile-info></app-form-profile-info>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden sm:block" aria-hidden="true">
+    <div class="py-5">
+      <div class="border-t border-gray-200"></div>
+    </div>
+  </div>
+
+  <div class="mt-10 sm:mt-0">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <app-form-section title="Контакты">
+        {{'Добавь контакты, чтобы с тобой можно было легко связаться' | translate}}.
+      </app-form-section>
+
+      <div class="mt-5 md:col-span-2 md:mt-0">
+        <app-form-contacts></app-form-contacts>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="(user$ | async)?.isAgency">
+    <div class="hidden sm:block" aria-hidden="true">
+      <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+      </div>
+    </div>
+
+    <div class="mt-10 sm:mt-0">
+
+      <div class="md:grid md:grid-cols-3 md:gap-6">
+        <app-form-section title="Агентство недвижимости">
+          {{'Присоединитесь к действующей компании или создайте новую для работы на платформе' | translate}}.
+        </app-form-section>
+
+        <div class="mt-5 md:col-span-2 md:mt-0">
+          <app-form-company [currentUser]="(user$ | async)"></app-form-company>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(user$ | async)?.isAgency === false">
+    <div class="hidden sm:block" aria-hidden="true">
+      <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+      </div>
+    </div>
+
+    <div class="mt-10 sm:mt-0">
+
+      <div class="md:grid md:grid-cols-3 md:gap-6">
+        <app-form-section title="Представиться как агентство">
+          {{'Если ты представляешь агентство недвижимости, пожалуйста заполни профиль компании.' | translate}}
+        </app-form-section>
+
+        <div class="mt-5 md:col-span-2 md:mt-0">
+          <app-form-company [currentUser]="(user$ | async)"></app-form-company>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="hidden sm:block" aria-hidden="true">
+    <div class="py-5">
+      <div class="border-t border-gray-200"></div>
+    </div>
+  </div>
+
+</app-tw-page-layout>

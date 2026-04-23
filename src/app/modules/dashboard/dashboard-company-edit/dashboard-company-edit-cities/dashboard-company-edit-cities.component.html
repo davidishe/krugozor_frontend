@@ -1,0 +1,59 @@
+    <div class="mt-10">
+      <div class="bg-white py-5">
+
+        <!-- start -->
+        <div style="position: relative; padding-bottom: 5px;">
+
+          <!-- страны начало -->
+          <form>
+            <div class="sm:rounded-md">
+              <div class="bg-white">
+                <fieldset>
+                  <div class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-0 mb-2" aria-hidden="true">
+                    {{'Локации' | translate}}
+                  </div>
+                  <div class="grid grid-cols-2">
+
+                    <ng-container *ngFor="let country of (countrys$ | async); let i=index">
+                      <app-tw-checkbox class="mt-2 mb-2" (checkboxChanged)="setCountrys($event, country)"
+                        [id]="country.id + '_country'" [selector]="2" [isChecked]="isCountrySelected(country)">
+                        {{country.attributes.name }}
+                      </app-tw-checkbox>
+                    </ng-container>
+
+
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+          <!-- страны завершение -->
+
+
+          <!-- citites finish -->
+          <form *ngIf="citiesForDropDown.length > 0">
+            <div class="sm:rounded-md">
+              <div class="bg-white">
+                <div class="grid grid-cols-1">
+                  <app-dashboard-company-edit-cities-select [items]="citiesForDropDown"
+                    [selectedCitiesForCheck]="selectedCities" (setSelectedCities)="setSelectedCities($event)"
+                    [initialCities]="selectedCities" [initialCountries]="selectedCountries">
+                  </app-dashboard-company-edit-cities-select>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- citites end -->
+          <!-- {{ proposalService.getQueryParams() | json }} -->
+
+          <!-- end -->
+        </div>
+
+        <!-- end -->
+
+
+
+
+
+      </div>
+    </div>

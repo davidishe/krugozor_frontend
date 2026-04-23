@@ -1,0 +1,109 @@
+      <app-tw-page-layout title="{{'Заявки на покупку в складчину' | translate}}"
+        description="{{'Заявки от инвесторов, которые были переданы через сервис по твоему объекту' | translate}}."
+        [routerLinkAttribute]="['/dashboard/agent']" backBtnText="{{'Назад' | translate}}"
+        [specialInfo]="(proposalProfile?.proposalProfileStatusId | profile_status)?.name">
+
+        <div class="flow-root">
+          <div class="inline-block min-w-full align-middle">
+            <div class="mb-5 items-end flex justify-end">
+
+
+              <ng-container *ngIf="proposalProfile?.isReadyToDeal && proposalProfile?.proposalProfileStatusId < 3">
+                <app-chip-black class="mr-3" (click)="goToDeal()">
+                  {{'Выход на сделку' | translate }}
+                </app-chip-black>
+              </ng-container>
+
+              <!-- <ng-container
+                *ngIf="proposalProfile?.proposalProfileStatusId === 3 || proposalProfile?.proposalProfileStatusId === 4">
+                <app-chip-black class="mr-3">
+                  {{'Вернуть на этап сбора заявок' | translate }}
+                </app-chip-black>
+              </ng-container> -->
+
+              <ng-container *ngIf="proposalProfile?.proposalProfileStatusId === 3">
+                <app-chip-black class="mr-3" (click)="goToFinish()">
+                  {{'Объект продан' | translate }}
+                </app-chip-black>
+              </ng-container>
+
+              <ng-container *ngIf="proposalProfile?.proposalProfileStatusId === 3">
+                <app-chip-black class="mr-3" (click)="goToRollback()">
+                  {{'Вернуть на этап сбора заявок' | translate }}
+                </app-chip-black>
+              </ng-container>
+
+
+            </div>
+            <ul role="list" class="divide-y-2 divide-gray-100 transition">
+              <ng-container *ngFor="let request of requests; let i=index">
+
+                <!-- {{request | json}} -->
+
+                <li class="relative py-5 cursor-pointer hover:bg-slate-50"
+                  [routerLink]="[ '/dashboard/agent/proposal', strapiProposalId ,'request', request.id ]">
+                  <div class="">
+                    <div class="mx-auto flex justify-between gap-x-6 px-3 flex-wrap">
+                      <div class="flex min-w-0 gap-x-4 items-center">
+                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{request?.investor.pictureUrl}}"
+                          alt="">
+                        <div class="min-w-0 flex-auto">
+                          <p class="text-sm font-semibold leading-6 text-gray-900">
+                            <a>
+                              <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                              {{request.investor.firstName}} {{request.investor.secondName}}
+                            </a>
+                          </p>
+                          <p class="mt-1 flex text-xs leading-5 text-gray-500">
+                            <a href="mailto:leslie.alexander@example.com" class="relative truncate hover:underline">
+                              {{request.investor.email}}
+                            </a>
+                          </p>
+                          <p class="mt-1 flex text-xs leading-5 text-gray-500">
+                            <app-filters-button-chip icon="tw_exclamation_black" style="width: fit-content;"
+                              class="mt-3">
+                              {{ (request.requestStatusId | request_status)?.name | translate }}
+                            </app-filters-button-chip>
+                          </p>
+                        </div>
+
+                      </div>
+                      <div class="hidden md:visible md:flex shrink-0 items-center gap-x-4">
+                        <div class="hidden sm:flex sm:flex-col sm:items-end">
+                          <!-- <p class="text-sm leading-6 text-gray-900">Co-Founder / CEO</p> -->
+                          <p class="mt-0 text-xs leading-5 text-gray-500">{{'Создал заявку' | translate}} <time
+                              datetime="2023-01-23T13:23Z">
+                              {{request.createdAt | datelocale}}
+                            </time>
+                          </p>
+                        </div>
+                        <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                          aria-hidden="true">
+                          <path fill-rule="evenodd"
+                            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+
+
+            <ng-container *ngIf="(requests?.length === 0)">
+              <div
+                style="display: flex; justify-content: center; vertical-align: middle; height: 45vh; align-items: center;">
+
+                <app-tw-empty subtitle="Твоими объектами пока никто не заинтересовался"
+                  icon="./assets/svg/tw_doc_black.svg" title="{{'Пока здесь пусто' | translate}}">
+                </app-tw-empty>
+              </div>
+            </ng-container>
+
+
+          </div>
+        </div>
+
+
+      </app-tw-page-layout>

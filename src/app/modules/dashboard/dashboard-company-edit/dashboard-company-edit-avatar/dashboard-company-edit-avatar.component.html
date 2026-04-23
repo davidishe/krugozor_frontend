@@ -1,0 +1,104 @@
+<!-- <div>
+  {{imageUri + currentCompany?.data?.attributes?.images?.data[0]?.attributes?.formats?.small?.url | json}}
+</div> -->
+
+<div>
+  <div class="mt-1 flex items-center mb-7">
+    <span class="inline-block h-16 w-16 overflow-hidden rounded-full bg-gray-100"
+      style="justify-content: center; align-items: center; vertical-align: middle; display: flex;">
+      <ng-container *ngIf="(currentCompany?.data?.attributes?.images?.data === null) && !progress">
+
+
+        <svg (click)="file.click()" class="h-full w-full text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+        </svg>
+      </ng-container>
+
+
+      <ng-container *ngIf="progress">
+        <img class="h-5 w-5 relative" src="./assets/svg/spinner.svg" alt="">
+      </ng-container>
+
+
+
+      <ng-container *ngIf="(currentCompany?.data?.attributes?.images?.data?.length > 0) && !progress">
+        <img style="display: block;" [src]="(imageUri + currentImageUrl)">
+      </ng-container>
+
+
+    </span>
+
+
+    <button type="button" class="ml-5 rounded-full border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700
+      shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      (click)="file.click()">
+      {{'Изменить' | translate}}
+    </button>
+  </div>
+  <input class="hidden" type="file" #file placeholder="Выбери файл" (change)="uploadFile(file.files)"
+    style="display:none;">
+</div>
+
+
+
+<!-- <div class="mt-10">
+
+      <div class="bg-white px-4 py-5 sm:p-6 pb-0">
+        <div class="text-base font-medium text-gray-900 mb-2" aria-hidden="true">
+          {{'Картинки' | translate}}
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <ul role="list"
+      class="bg-gray-100 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 px-4 py-5 sm:p-6 rounded-md pt-0">
+      <ng-container *ngFor="let image of images; let i=index">
+        <li class="relative">
+          <div
+            class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:ring-indigo-600 hover:ring-offset-2 hover:ring-2">
+            <img src="{{'https://strapi.karavanglobal.space' + image.attributes?.formats.thumbnail.url}}" alt=""
+              class="pointer-events-none object-cover group-hover:opacity-75 transition">
+
+          </div>
+          <button type="button" (click)="deleteImage(image)"
+            class="opacity-0 absolute inset-0 focus:outline-none hover:visible hover:opacity-100 transition">
+            <img class="h-7 w-7" src="./assets/svg/tw_close_circle_black.svg"
+              style="right: -14px; top: -13px; position: absolute;" alt="">
+          </button>
+        </li>
+      </ng-container>
+
+
+      <li class="relative">
+        <div (click)="file.click()" class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2
+      focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 transition bg-gray-400
+      hover:bg-gray-400" style="display: flex; align-items: center; vertical-align: middle;" [ngClass]="{'bg-gray-300 hover:bg-gray-400':
+      progress === false}">
+
+          <button type="button" class="absolute inset-0 focus:outline-none" style="display: flex;
+    align-items: center;
+    justify-content: center;">
+
+            <ng-container *ngIf="!progress">
+              <img class="h-4 w-4" src="./assets/svg/plus.svg" alt="">
+            </ng-container>
+
+            <ng-container *ngIf="progress">
+              <img class="h-5 w-5 relative" src="./assets/svg/spinner.svg" alt="">
+            </ng-container>
+
+            <input class="hidden" type="file" #file placeholder="Выбери файл" (change)="uploadFile(file.files)"
+              style="display:none;">
+
+
+          </button>
+        </div>
+      </li>
+
+
+    </ul> -->

@@ -1,0 +1,122 @@
+<!-- <div class="inline-flex justify-between w-full">
+      <h1 class="w-full text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+        {{'Мои объекты'  | translate}}
+      </h1>
+    </div>
+    <p class="mt-2 text-sm text-gray-500">
+      {{'Предложения, которые разместило твое агентство недвижимости'}}
+    </p> -->
+
+
+<app-tw-page-layout title="{{'Мои объекты' | translate}}"
+  description="{{'Предложения, которые разместило твое агентство недвижимости' | translate}}."
+  backBtnText="{{'Назад' | translate}}">
+
+
+  <!-- <app-tw-button-third *ngIf="!true" class="ml-4" (click)="submitGrade()" [isDisabled]="isGradeFunctionActive()" -->
+  <ng-container>
+    <app-tw-button-third class="ml-4 float-right mt-8 md:mt-5" iconPath='tw_plus' (click)="addNewProposal()">
+      {{'Добавить' | translate}}
+    </app-tw-button-third>
+  </ng-container>
+
+
+  <div class="mt-16">
+    <div class="space-y-20" *ngIf="(myProposals$ | async ) as myProposals;">
+      <div>
+        <table *ngIf="myProposals.data?.length > 0" class="mt-4 w-full text-gray-500 sm:mt-6">
+          <thead class="sr-only text-left text-sm text-gray-500 sm:not-sr-only">
+            <tr>
+              <th scope="col" class="py-3 pr-8 font-normal sm:w-2/5 lg:w-1/3">{{'' | translate}}</th>
+              <th scope="col" class="hidden py-3 pr-8 font-normal sm:table-cell">{{'' | translate}}</th>
+              <th scope="col" class="w-0 py-3 text-right font-normal"></th>
+            </tr>
+          </thead>
+
+
+          <tbody class="divide-y divide-gray-200 border-b border-gray-200 text-sm sm:border-t">
+            <ng-container *ngFor="let proposal of myProposals.data; let i=index">
+              <tr class="cursor-pointer hover:bg-slate-50" (click)="openProposalEditPage(proposal)">
+                <td class="py-6 px-0 md:px-6">
+                  <div class="flex items-start md:items-center flex-col  md:flex-row">
+
+
+                    <ng-container *ngIf="proposal.attributes.images.data">
+                      <img src="{{imageUri + proposal.attributes.images.data[0].attributes?.formats.thumbnail.url}}"
+                        alt="Detail of mechanical pencil tip with machined black steel shaft and chrome lead tip."
+                        class="mr-6 h-16 w-16 rounded object-cover object-center" style="min-width: 64px;">
+                    </ng-container>
+                    <ng-container *ngIf="!proposal.attributes.images.data">
+                      <div class="bg-gray-100 mr-6 rounded" style="min-width: 64px; display: flex; align-items: center; justify-content: center;
+                          align-items: center;
+                          justify-content: center;
+                          height: 64px;
+                          display: flex;">
+                        <img src="./assets/svg/file.svg"
+                          alt="Detail of mechanical pencil tip with machined black steel shaft and chrome lead tip."
+                          class="h-5 w-5 rounded object-cover object-center">
+                      </div>
+                    </ng-container>
+
+
+                    <div class="flex flex-col">
+                      <div class="font-medium text-gray-900 py-4 md:py-0">
+                        <ng-container *ngIf="proposal.attributes.name">
+                          {{proposal.attributes.name}}
+                        </ng-container>
+                        <ng-container *ngIf="!proposal.attributes.name">
+                          {{'Имя не заполнено' | translate}}
+                        </ng-container>
+                      </div>
+
+                      <div class="font-normal text-gray-600 py-4 md:py-0">
+                        <ng-container *ngIf="proposal.attributes.createdAt">
+                          {{'Создано' | translate}} {{proposal.attributes.createdAt | datelocale}}
+                        </ng-container>
+                      </div>
+                    </div>
+
+
+
+
+                  </div>
+                </td>
+
+
+                <td class="py-6 sm:table-cell px-0 md:px-6">
+                  <div style="align-items: flex-end; justify-content: flex-end; display: flex;">
+                    <app-tw-button-icon-textless icon="tw_open_new_window">
+                    </app-tw-button-icon-textless>
+                    <!-- TODO:  отсюда переходим  -->
+                  </div>
+                </td>
+              </tr>
+
+
+
+            </ng-container>
+            <!-- More products... -->
+          </tbody>
+
+
+        </table>
+
+      </div>
+    </div>
+
+    <ng-container *ngIf="(myProposals$ | async )?.length !== 0 && (myProposals$ | async ) === null ">
+      <app-spinner></app-spinner>
+    </ng-container>
+
+    <ng-container *ngIf="(myProposals$ | async )?.data?.length === 0">
+      <app-tw-empty title="Ничего не нашел"
+        subtitle="{{'Пока еще пусто, потому что ты ничего не добавлял' | translate}}" [isBtnDisabled]="true"
+        icon="./assets/svg/tw_doc_black.svg">
+      </app-tw-empty>
+    </ng-container>
+
+
+  </div>
+
+
+</app-tw-page-layout>

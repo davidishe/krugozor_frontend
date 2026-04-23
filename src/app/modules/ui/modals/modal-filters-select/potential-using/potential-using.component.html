@@ -1,0 +1,17 @@
+<form>
+  <div class="sm:rounded-md">
+    <div class="bg-white">
+      <fieldset>
+        <div class="grid grid-cols-2">
+          <ng-container *ngFor="let item of items; let i=index">
+            <app-tw-checkbox class="mt-2 mb-2" *ngIf="queryParams"
+              (checkboxChanged)="setItem($event, item, queryParams)" [id]="item.id + '_proposalType'" [selector]="2"
+              [isChecked]="getStatus(item, queryParams.selectedProposalTypes)" [disabled]="isDisabled(item.id)">
+              {{item.attributes.name }}
+            </app-tw-checkbox>
+          </ng-container>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</form>
