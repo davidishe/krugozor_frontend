@@ -1,0 +1,93 @@
+name: Deploy Krugozor Frontend workflow 
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LINUX_DEPLOY_HOST }}
+          username: root
+          key: ${{ secrets.LINUX_DEPLOY_SECRET }}
+          port: 22
+          script_stop: true
+          script: |
+            set -euo pipefail
+
+            DEPLOY_DIR="/var/www/krugozor.space"
+            PUBLIC_DIR="$DEPLOY_DIR/public"
+
+            cd "$DEPLOY_DIR"
+            git fetch --all --prune
+
+            if git show-ref --verify --quiet refs/remotes/origin/main; then
+              TARGET_BRANCH=origin/main
+            else
+              TARGET_BRANCH=origin/master
+            fi
+
+            git reset --hard "$TARGET_BRANCH"
+            npm ci
+            npm run build -- --configuration production
+
+            echo "[deploy] build completed, syncing static files"
+            if [ ! -d www ]; then
+              echo "[deploy] missing build output: www"
+              ls -la
+              exit 1
+            fi
+
+            sudo mkdir -p "$PUBLIC_DIR"
+            sudo find "$PUBLIC_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+            sudo cp -a www/. "$PUBLIC_DIR/"
+            echo "[deploy] static files synced"
+
+            echo "[deploy] starting nginx/cert checks"
+            set +e
+            SRC_CONF="$DEPLOY_DIR/CI/krugozor.space.conf"
+            DST_CONF="/etc/nginx/nginx_configs/krugozor.space.conf"
+            NGINX_APPLIED=0
+
+            if [ -f "$SRC_CONF" ]; then
+              sudo mkdir -p /etc/nginx/nginx_configs/
+              if sudo cp -f "$SRC_CONF" "$DST_CONF"; then
+                NGINX_APPLIED=1
+                echo "[deploy] nginx frontend config copied"
+              else
+                echo "[deploy] warning: failed to copy nginx frontend config"
+              fi
+            else
+              echo "[deploy] warning: missing nginx config in repo: $SRC_CONF"
+            fi
+
+            if [ "$NGINX_APPLIED" -eq 1 ]; then
+              if sudo nginx -t; then
+                if sudo systemctl reload nginx; then
+                  echo "[deploy] nginx reloaded"
+                else
+                  echo "[deploy] warning: failed to reload nginx"
+                fi
+              else
+                echo "[deploy] warning: nginx -t failed, reload skipped"
+              fi
+            else
+              echo "[deploy] nginx reload skipped (config not applied)"
+            fi
+
+            DOMAIN="krugozor.space"
+            CERT_DIR="/etc/letsencrypt/live/$DOMAIN"
+            if sudo test -f "$CERT_DIR/fullchain.pem" && sudo test -f "$CERT_DIR/privkey.pem"; then
+              echo "[deploy] frontend certificate exists: $DOMAIN"
+            else
+              echo "[deploy] warning: frontend certificate missing for $DOMAIN"
+            fi
+
+            set -e
