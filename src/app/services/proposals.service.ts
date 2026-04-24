@@ -9,9 +9,6 @@ import { IItem, IResponseData } from '../models/main/response';
 import { PopoverService } from '../modules/ui/popover/popover.service';
 import { ICity } from '../models/main/city';
 import { ICountry } from '../models/main/country';
-import { Apollo, gql } from "apollo-angular";
-import CATEGORIES_QUERY from '../apollo/categories';
-import AmenitiesQuery from '../apollo/amenities';
 import { IStrapiData } from '../models/main/proposal';
 import { IImageAttributes, IImageData, IImageResponse } from '../models/main/image';
 
@@ -49,7 +46,6 @@ export class ProposalsService {
 
   constructor(
     public http: HttpClient,
-    private apollo: Apollo,
     private popoverService: PopoverService
   ) {
   }
@@ -346,75 +342,16 @@ export class ProposalsService {
 
   getStrapiProposalsByIds(itemsId: number[]) {
     let locale = this.getLocal();
-    var PROPOSALS_QUERY_FAVOURS = gql`
-        query GetProposalsByIds {
-          proposals(filters: {
-            id: {in: [${itemsId}]}
-          }) 
-          {
-            data {
-              id
-              attributes {
-                name
-                description
-                createdAt
-                price
-                proposal_status {
-                  data {
-                    id
-                    attributes {
-                      name
-                    }
-                  }
-                }
-                proposal_types {
-                  data {
-                    attributes {
-                      name
-                    }
-                  }
-                }
-                images {
-                  data {
-                    attributes {
-                      formats
-                    }
-                  }
-                }
-                categories {
-                  data {
-                    id
-                    attributes {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            meta {
-              pagination {
-                pageSize
-                page
-                pageCount
-                total
-              }
-            }
-          }
-        }
-      `;
-
-    return this.apollo.query({
-      query: PROPOSALS_QUERY_FAVOURS
-    })
+    const idsFilter = itemsId.map((id, index) => `filters[id][$in][${index}]=${id}`).join('&');
+    const url = `${this.strapiUrl}proposals?populate=*&locale=${locale}&${idsFilter}`;
+    return this.http.get<any>(url);
   }
 
 
   getCatalogCategoryesGQL() {
-    return this.apollo.query({
-      query: CATEGORIES_QUERY
-    }).pipe(
+    return this.http.get<any>(`${this.strapiUrl}proposal-types?pagination[page]=1&pagination[pageSize]=50&locale=${this.getLocal()}`).pipe(
       map((res: any) => {
-        this.proposalTypesSource.next(res.data.proposalTypes.data);
+        this.proposalTypesSource.next(res.data);
       }, (err: any) => {
       })
     ).subscribe((res: any) => {
@@ -426,11 +363,9 @@ export class ProposalsService {
 
 
   getAmenitites() {
-    return this.apollo.query({
-      query: AmenitiesQuery
-    }).pipe(
+    return this.http.get<any>(`${this.strapiUrl}amenities?pagination[page]=1&pagination[pageSize]=50&locale=${this.getLocal()}`).pipe(
       map((res: any) => {
-        this.amenitiesSource.next(res.data.amenities.data);
+        this.amenitiesSource.next(res.data);
       }, (err: any) => {
       })
     ).subscribe((res: any) => {

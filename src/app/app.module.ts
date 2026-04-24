@@ -17,10 +17,6 @@ import { LightboxModule } from 'ngx-lightbox';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TwUiKitLocalModule } from './modules/tw-ui-kit-local/tw-ui-kit-local.module';
 import { PopoverModule } from './modules/ui/popover/popover.module';
-import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
-import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { environment } from 'src/environments/environment';
 import { TwAlertModule } from './modules/tw-ui-kit-local/tw-alert/tw-alert.module';
 import { TimeagoModule } from "ngx-timeago";
 import { MessageBarNotifyModule } from './modules/message-bar/message-bar.module';
@@ -31,8 +27,6 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
     http, './assets/i18n/', '.json');
 }
-
-const gqlLink = environment.graphQlUrl;
 
 registerLocaleData(localeRu, 'ru');
 
@@ -74,7 +68,6 @@ export const MY_FORMATS = {
     TwAlertModule,
     NoopAnimationsModule,
     PopoverModule,
-    ApolloModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: !isDevMode(),
       enabled: false,
@@ -98,19 +91,7 @@ export const MY_FORMATS = {
       deps: [ TranslateService, Injector ],
       multi: true
     },
-    { 
-      provide: APOLLO_OPTIONS,
-      useFactory(httpLink: HttpLink) {
-        return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: gqlLink,
-          }),
-        };
-      },
-      deps: [HttpLink],
-    },
-    
+
 ],
   bootstrap: [AppComponent],
 })
